@@ -1,0 +1,8 @@
+.zoomed1, .zoomed2, .zoomed3, .zoomed4 {
+  transform: scale(1.1);
+}
+
+.image-container:hover {
+  filter: brightness(60%);
+}
+

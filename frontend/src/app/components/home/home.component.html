@@ -1,0 +1,195 @@
+<div class="surface-section h-30rem bg-no-repeat bg-cover bg-center flex align-items-center"
+style="background:url(../../../assets/images/banner2.png);">
+  <!--div class="px-4 mx-4 lg:px-6 lg:mx-6">
+      <span class="block text-3xl text-white mb-4">Nova Marca</span>
+      <span class="block text-5xl font-medium text-white mb-4">COLEÇÃO ESPECIAL</span>
+      <a tabindex="0" pRipple class="py-2 w-13rem text-center block mb-4 text-xl text-white font-medium border-2 cursor-pointer surface-border-0 border-round bg-white-alpha-30">Explore esta moda</a>
+  </div-->
+</div>
+
+<div class="surface-section px-4 py-3 md:px-6 lg:px-8">
+  <div class="flex flex-wrap align-items-center justify-content-center gap-5">
+      <div class="p-3 flex align-items-center bg-green-100" style="border-radius:50px">
+          <div class="bg-green-500 inline-flex align-items-center justify-content-center mr-3 h-3rem w-3rem border-circle">
+              <i class="pi pi-shopping-bag text-white text-2xl"></i>
+          </div>
+          <span class="text-green-900 text-lg font-medium">Frete Grátis</span>
+      </div>
+      <div class="p-3 flex align-items-center bg-green-100" style="border-radius:50px">
+          <div class="bg-green-500 inline-flex align-items-center justify-content-center mr-3 h-3rem w-3rem border-circle">
+              <i class="pi pi-arrow-right text-white text-2xl"></i>
+          </div>
+          <span class="text-green-900 text-lg font-medium">Até 6x sem juros</span>
+      </div>
+      <div class="p-3 flex align-items-center bg-green-100" style="border-radius:50px">
+          <div class="bg-green-500 inline-flex align-items-center justify-content-center mr-3 h-3rem w-3rem border-circle">
+              <i class="pi pi-shield text-white text-2xl"></i>
+          </div>
+          <span class="text-green-900 text-lg font-medium">Melhores Preços</span>
+      </div>
+      <div class="p-3 flex align-items-center bg-green-100" style="border-radius:50px">
+          <div class="bg-green-500 inline-flex align-items-center justify-content-center mr-3 h-3rem w-3rem border-circle">
+              <i class="pi pi-refresh text-white text-2xl"></i>
+          </div>
+          <span class="text-green-900 text-lg font-medium">Entrega Rápida</span>
+      </div>
+  </div>
+</div>
+
+<!--BEST SELLERS-->
+<div class="py-5 text-3xl flex justify-content-center font-bold">
+  <h3 class="mb-3 text-700 text-center">Mais Vendidos</h3>
+</div>
+<div class="flex justify-content-center">
+<div class="card w-8 h-full">
+  <p-carousel [value]="bestSellers" [numVisible]="4" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
+      <ng-template let-product pTemplate="item">
+          <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+              <div class="mb-3">
+                <img [src]="product.image" alt="product_image" class="w-full" [routerLink]="['/products', product.id]"/>
+              </div>
+              <div>
+                  <h4 class="mb-1">{{ product.name }}</h4>
+                  <h3 class=" text-gray-600 mt-0 mb-3">{{product.unitPrice | currencyFormat}}</h3>
+                  <div class="car-buttons mt-5">
+                      <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
+                      <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
+                  </div>
+              </div>
+          </div>
+      </ng-template>
+  </p-carousel>
+</div>
+</div>
+
+<!--COLUMN CATEGORY-->
+<div class="py-6 md:px-6 lg:px-8">
+  <div class="py-5 text-3xl flex justify-content-center font-bold">
+    <h3 class="mb-3 text-700 text-center">Qual o seu objetivo?</h3>
+  </div>
+  <div class="grid ml-8 mr-8" >
+      <div class="relative col-12 md:col-6 lg:col-3">
+          <div class="flex flex-column justify-content-between shadow-4 h-full bg-cover bg-center
+          transition-colors transition-duration-1000 image-container"
+          style="background: linear-gradient(0deg, rgba(26, 70, 15, 0.445), rgba(54, 57, 61, 0.603)),          url(assets/images/storefront/storefront-1-28.jpg); min-height:40rem;">
+              <div class="p-4 align-self-start">
+                  <div class="text-white text-2xl font-bold mb-2">Mais Desempenho</div>
+              </div>
+              <div class="p-4 align-self-end">
+                  <a tabindex="0" class="text-2xl cursor-pointer text-white flex align-items-center hover:text-primary transition-duration-150">Compre Já!<i class="pi pi-fw pi-arrow-right text-2xl ml-2"></i></a>
+              </div>
+          </div>
+      </div>
+
+      <div class="relative col-12 md:col-6 lg:col-3">
+        <div class="flex flex-column justify-content-between shadow-4 h-full border-round bg-no-repeat bg-cover bg-center
+        transition-colors transition-duration-1000 image-container"
+        style="background: linear-gradient(0deg, rgba(26, 70, 15, 0.445), rgba(54, 57, 61, 0.603)),        url(assets/images/storefront/storefront-1-28.jpg); min-height:40rem;">
+            <div class="p-4 align-self-start">
+                <div class="text-white text-2xl font-bold mb-2">Perda de Peso</div>
+            </div>
+            <div class="p-4 align-self-end">
+                <a tabindex="0" class="text-2xl cursor-pointer text-white flex align-items-center hover:text-primary transition-duration-150">Compre Já!<i class="pi pi-fw pi-arrow-right text-2xl ml-2"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative col-12 md:col-6 lg:col-3">
+      <div class="flex flex-column justify-content-between shadow-4 h-full  border-round bg-no-repeat bg-cover bg-center
+      transition-colors transition-duration-1000 image-container"
+      style="background: linear-gradient(0deg, rgba(26, 70, 15, 0.445), rgba(54, 57, 61, 0.603)),
+      url(assets/images/storefront/storefront-1-28.jpg); min-height:40rem;">
+          <div class="p-4 align-self-start">
+              <div class="text-white text-2xl font-bold mb-2">Bem Estar</div>
+          </div>
+          <div class="p-4 align-self-end">
+              <a tabindex="0" class="text-2xl cursor-pointer text-white flex align-items-center hover:text-primary transition-duration-150">Compre Já!<i class="pi pi-fw pi-arrow-right text-2xl ml-2"></i></a>
+          </div>
+    </div>
+  </div>
+
+  <div class="relative col-12 md:col-6 lg:col-3">
+        <div class="flex flex-column justify-content-between shadow-4 h-full border-round bg-no-repeat bg-cover
+        bg-center transition-colors transition-duration-1000 image-container"
+        style="background: linear-gradient(0deg, rgba(26, 70, 15, 0.445), rgba(54, 57, 61, 0.603)),            url(assets/images/storefront/storefront-1-28.jpg); min-height:40rem;">
+            <div class="p-4 align-self-start">
+                <div class="text-white text-2xl font-bold mb-2">Massa Muscular!</div>
+            </div>
+            <div class="p-4 align-self-end">
+                <a tabindex="0" class="text-2xl cursor-pointer text-white flex align-items-center hover:text-primary transition-duration-150">Compre Já!<i class="pi pi-fw pi-arrow-right text-2xl ml-2"></i></a>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--LANÇAMENTOS-->
+<div class="py-5 text-3xl flex justify-content-center font-bold">
+  <h3 class="mb-3 text-700 text-center">Lançamentos</h3>
+</div>
+<div class="flex justify-content-center">
+  <div class="card w-8 h-full">
+    <p-carousel [value]="mostRecents" [numVisible]="4" [numScroll]="4" [circular]="false" [responsiveOptions]="responsiveOptions">
+        <ng-template let-product pTemplate="item">
+            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+                <div class="mb-3">
+                  <img [src]="product.image" alt="product_image" class="w-full" [routerLink]="['/products', product.id]"/>
+                </div>
+                <div>
+                  <h4 class="mb-1">{{ product.name }}</h4>
+                  <h3 class=" text-gray-600 mt-0 mb-3">{{product.unitPrice | currencyFormat}}</h3>
+                    <div class="car-buttons mt-5">
+                        <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
+                        <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+  </div>
+  </div>
+
+  <!--CATEGORY PREVIEW-->
+    <div class="gap-3 px-4 py-8 md:px-6 lg:px-8">
+      <div class="py-5 text-3xl flex justify-content-center font-bold">
+        <h3 class="mb-3 text-700 text-center">Por Categoria</h3>
+      </div>
+        <div class="flex justify-content-evenly flex-wrap grid ml-8 mr-8">
+            <div class="xs:col-12 sm:col-6 md:col-4 xl:col-2 flex flex-column align-items-center mx-auto lg:mx-0 mb-3 md:mb-0">
+                <img class="w-7 h-7" src="../../../assets/images/image_category/categoria_proteina.gif" alt="avatar">
+                <span class="text-900 text-xl font-medium mt-3">Proteínas</span>
+            </div>
+            <div class="xs:col-12 sm:col-6 md:col-4 xl:col-2 flex flex-column align-items-center mx-auto lg:mx-0 mb-3 md:mb-0">
+                <img class="w-7 h-7" src="../../../assets/images/image_category/categoria_pretreino.gif" alt="avatar">
+                <span class="text-900 text-xl font-medium mt-3">Pré-treino</span>
+            </div>
+            <div class="xs:col-12 sm:col-6 md:col-4 xl:col-2 flex flex-column align-items-center mx-auto lg:mx-0 mb-3 md:mb-0">
+                <img class="w-7 h-7" src="../../../assets/images/image_category/categoria_creatina.gif" alt="avatar">
+                <span class="text-900 text-xl font-medium mt-3">Creatinas</span>
+            </div>
+            <div class="xs:col-12 sm:col-6 md:col-4 xl:col-2 flex flex-column align-items-center mx-auto lg:mx-0 mb-3 md:mb-0">
+                <img class="w-7 h-7" src="../../../assets/images/image_category/categoria_acessorios.gif" alt="avatar">
+                <span class="text-900 text-xl font-medium mt-3">Acessórios</span>
+            </div>
+            <div class="xs:col-12 sm:col-6 md:col-4 xl:col-2 flex flex-column align-items-center mx-auto lg:mx-0 mb-3 md:mb-0">
+                <img class="w-7 h-7" src="../../../assets/images/image_category/categoria_bem_estar.gif" alt="avatar">
+                <span class="text-900 text-xl font-medium mt-3">Hipercalóricos</span>
+            </div>
+        </div>
+    </div>
+
+
+      <!--BRANDS-->
+      <section class="surface-section gap-3 px-4 py-8 md:px-6 lg:px-8">
+        <div class="py-5 text-3xl flex justify-content-center font-bold">
+          <h3 class="mb-3 text-700 text-center">Melhores Marcas</h3>
+        </div>
+        <div class="flex justify-content-evenly flex-wrap">
+            <img class="w-2 h-full" src="../../../assets/images/brands/blackskull.gif" alt="blackskull">
+            <img class="w-2 h-full" src="../../../assets/images/brands/integral_medica.gif" alt="integral medica">
+            <img class="w-2 h-full" src="../../../assets/images/brands/max-titanium.gif" alt="Max Titanium">
+            <img class="w-2 h-full" src="../../../assets/images/brands/naturovos.gif" alt="Naturovos">
+            <img class="w-2 h-full" src="../../../assets/images/brands/vitafor.gif" alt="Vitafor">
+        </div>
+    </section>
+
