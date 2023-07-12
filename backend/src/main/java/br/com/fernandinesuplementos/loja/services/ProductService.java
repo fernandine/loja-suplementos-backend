@@ -45,7 +45,23 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public List<ProductDto> findByFavorite(boolean notFavorite) {
-        List<Product> list = repository.find(notFavorite);
+        List<Product> list = repository.findByFavorite(notFavorite);
+        return list.stream()
+                .map(product -> modelMapper.map(product, ProductDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductDto> findBySale(boolean notSale) {
+        List<Product> list = repository.findBySale(notSale);
+        return list.stream()
+                .map(product -> modelMapper.map(product, ProductDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductDto> findByFeature(boolean notFeature) {
+        List<Product> list = repository.findByFeature(notFeature);
         return list.stream()
                 .map(product -> modelMapper.map(product, ProductDto.class))
                 .collect(Collectors.toList());
@@ -84,19 +100,6 @@ public class ProductService {
                 .map(product -> modelMapper.map(product, ProductDto.class))
                 .collect(Collectors.toList());
     }
-
-//    @Transactional(readOnly = true)
-//    public List<ProductDto> filterProducts(List<Brands> productBrands, List<Colors> productColors, List<Sizes> productSizes, Long categoryId) {
-//        List<Product> list;
-//        if (productBrands == null && productColors == null && productSizes == null && categoryId == null) {
-//            list = repository.findAll();
-//        } else {
-//            list = repository.findByBrandsAndColorsAndSizesAndCategoryId(productBrands, productColors, productSizes, categoryId);
-//        }
-//        return list.stream()
-//                .map(product -> modelMapper.map(product, ProductDto.class))
-//                .collect(Collectors.toList());
-//    }
 
     @Transactional
     public ProductDto insert(ProductDto dto) {
@@ -138,6 +141,8 @@ public class ProductService {
         entity.setImage(dto.getImage());
         entity.setSku(dto.getSku());
         entity.setFavorite(dto.isFavorite());
+        entity.setFavorite(dto.isFeature());
+        entity.setFavorite(dto.isSale());
         entity.setUnitsInStock(dto.getUnitsInStock());
         entity.setUnitPrice(dto.getUnitPrice());
     }

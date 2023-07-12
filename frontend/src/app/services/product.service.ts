@@ -28,10 +28,29 @@ export class ProductService {
   }
 
   findByFavorite(favorite: boolean): Observable<Product[]> {
-    const url = `${this.baseUrl}/find?notFavorite=${!favorite}`;
+    const url = `${this.baseUrl}/findByFavorite?notFavorite=${!favorite}`;
     return this.http.get<Product[]>(url).pipe(
       map(products => {
         this.likedProducts = products.filter(p => p.favorite);
+        return this.likedProducts;
+      })
+    );
+  }
+  findBySale(sale: boolean): Observable<Product[]> {
+    const url = `${this.baseUrl}/findBySale?notSale=${!sale}`;
+    return this.http.get<Product[]>(url).pipe(
+      map(products => {
+        this.likedProducts = products.filter(p => p.sale);
+        return this.likedProducts;
+      })
+    );
+  }
+
+  findByFeature(feature: boolean): Observable<Product[]> {
+    const url = `${this.baseUrl}/findByFeature?notFeature=${!feature}`;
+    return this.http.get<Product[]>(url).pipe(
+      map(products => {
+        this.likedProducts = products.filter(p => p.feature);
         return this.likedProducts;
       })
     );

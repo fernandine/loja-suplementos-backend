@@ -24,6 +24,8 @@ public class ProductDto implements Serializable {
     private Long EAN;
     private String image;
     private boolean favorite;
+    private boolean feature;
+    private boolean sale;
     private int unitsInStock;
     private int salesCount;
     private CategoryDto category;

@@ -24,15 +24,33 @@ public class ProductController {
         return ResponseEntity.ok().body(list);
     }
 
-    // URL = /products/find?notFavorite=?
-    @GetMapping("/find")
-    public ResponseEntity<List<ProductDto>> find(
-            @RequestParam(value = "notFavorite", defaultValue = "false") Boolean favorite) {
+    // URL = /products/find?notFavorite=
+    @GetMapping("/findByFavorite?notFavorite=")
+    public ResponseEntity<List<ProductDto>> findByFavorite(
+            @RequestParam(value = "notFavorite", defaultValue = "false") boolean favorite
+            ) {
         List<ProductDto> list = service.findByFavorite(favorite);
         return ResponseEntity.ok().body(list);
     }
+    // URL = /products?notSale=
+    @GetMapping("/findBySale")
+    public ResponseEntity<List<ProductDto>> findBySale(
+            @RequestParam(value = "notSale", defaultValue = "false") boolean sale
+    ) {
+        List<ProductDto> list = service.findBySale(sale);
+        return ResponseEntity.ok().body(list);
+    }
+    // URL = /products/findByFeature?notFeature=
+    @GetMapping("/findByFeature")
+    public ResponseEntity<List<ProductDto>> findByFeature(
+            @RequestParam(value = "notFeature", defaultValue = "false") boolean feature
+    ) {
+        List<ProductDto> list = service.findByFeature(feature);
+        return ResponseEntity.ok().body(list);
+    }
 
-    // URL = /products/categories?name=?
+
+    // URL = /products/categories?name=
     @GetMapping("/categories")
     public ResponseEntity<List<ProductDto>> findByNameCategory(@RequestParam("name") String name){
         return ResponseEntity.ok().body(service.findByName(name));
@@ -44,38 +62,19 @@ public class ProductController {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
-    // URL = /products/best-sellers?limit=?
+    // URL = /products/best-sellers?limit=
     @GetMapping("/best-sellers")
     public ResponseEntity<List<ProductDto>> getBestSellers(@RequestParam("limit") int limit) {
         List<ProductDto> bestSellers = service.getBestSellers(limit);
         return ResponseEntity.ok(bestSellers);
     }
 
-    // URL = /products/most-recents?limit=?
+    // URL = /products/most-recents?limit=
     @GetMapping("/most-recents")
     public ResponseEntity<List<ProductDto>> getMostRecentProducts(@RequestParam("limit") int limit) {
         List<ProductDto> mostRecentProducts = service.findMostRecentProductsByCreationDate(limit);
         return ResponseEntity.ok(mostRecentProducts);
     }
-
-//    // URL = /products/filter?brand=PUC&color=VERDE&size=P&category=5
-//    @GetMapping("/filter")
-//    public ResponseEntity<List<ProductDto>> filterProducts(
-//            @RequestParam(name = "category", required = false) Long categoryId,
-//            @RequestParam(name = "brand", required = false) List<Brands> productBrand,
-//            @RequestParam(name = "color", required = false) List<Colors> productColor,
-//            @RequestParam(name = "size", required = false) List<Sizes> productSizes
-//    ) {
-//        if (productBrand == null && productColor == null && productSizes == null && categoryId == null) {
-//            // Se todos os parâmetros forem nulos, busca todos os produtos
-//            List<ProductDto> allProducts = service.findAll();
-//            return ResponseEntity.ok(allProducts);
-//        } else {
-//            // Caso contrário, faz a filtragem com base nos parâmetros fornecidos, incluindo a categoria
-//            List<ProductDto> filteredProducts = service.filterProducts(productBrand, productColor, productSizes, categoryId);
-//            return ResponseEntity.ok(filteredProducts);
-//        }
-//    }
 
     @PostMapping
     public ResponseEntity<ProductDto> insert(@Valid @RequestBody ProductDto dto) {

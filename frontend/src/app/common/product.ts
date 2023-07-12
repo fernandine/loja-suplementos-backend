@@ -12,6 +12,8 @@ export interface Product {
   EAN: number;
   image: string;
   favorite: boolean;
+  feature: boolean;
+  sale: boolean;
   punitsInStock: number;
   salesCount: number;
   category: Category;

@@ -15,7 +15,17 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     //BUSCA OS FAVORITOS
     @Query("SELECT obj FROM Product obj WHERE "
             + "(:notFavorite = false OR obj.favorite = false) ")
-    List<Product> find(boolean notFavorite);
+    List<Product> findByFavorite(boolean notFavorite);
+
+    //BUSCA OS DESTAQUES
+    @Query("SELECT obj FROM Product obj WHERE "
+            + "(:notFeature = false OR obj.feature = false) ")
+    List<Product> findByFeature(boolean notFeature);
+
+    //BUSCA OS PRODUTOS EM PROMOÇÃO
+    @Query("SELECT obj FROM Product obj WHERE "
+            + "(:notSale = false OR obj.sale = false) ")
+    List<Product> findBySale(boolean notSale);
 
     //BUSCA OS PRODUTOS MAIS VENDIDOS
     @Query("SELECT p FROM Product p ORDER BY p.salesCount DESC")

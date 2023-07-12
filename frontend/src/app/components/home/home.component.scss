@@ -1,8 +1,59 @@
-.zoomed1, .zoomed2, .zoomed3, .zoomed4 {
-  transform: scale(1.1);
-}
-
 .image-container:hover {
   filter: brightness(60%);
+}
+
+.banner-container {
+  background-color: #FFD62D;
+  overflow: hidden;
+  width: 100%;
+}
+
+.slide-animation {
+  display: flex;
+  width: 200%;
+  animation: slideAnimation 35s infinite linear;
+}
+
+.slide-animation img {
+  flex-shrink: 0;
+  width: 50%;
+}
+
+@keyframes slideAnimation {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.banner-container {
+  position: relative;
+  width: 100%;
+}
+
+.banner-image {
+  max-width: 100%;
+  height: auto;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.banner-text {
+  position: absolute;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+
+.banner-container:hover .banner-image {
+  opacity: 0;
+}
+
+.banner-container:hover .banner-text {
+  opacity: 1;
 }
 

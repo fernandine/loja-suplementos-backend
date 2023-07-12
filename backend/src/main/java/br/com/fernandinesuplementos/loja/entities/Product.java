@@ -31,12 +31,13 @@ public class Product implements Serializable {
     private Long EAN;
     @Column(name = "image")
     private String image;
-
+    @Column(name = "favorite")
+    private boolean favorite;
+    private boolean feature;
+    private boolean sale;
     @Column(name = "date_created",
             columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant dateCreated;
-    @Column(name = "favorite")
-    private boolean favorite;
     @Column(name = "units_in_stock")
     private int unitsInStock;
     @Column(name = "sales_count")

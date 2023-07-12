@@ -5,12 +5,17 @@ import { ProductService } from 'src/app/services/product.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+
 })
 export class HomeComponent {
 
   bestSellers: Product[] = [];
   mostRecents: Product[] = [];
+  feature: Product[] = [];
+  sale: Product[] = [];
+
+  active4: number = 0;
 
   responsiveOptions = [
     {
@@ -35,19 +40,34 @@ export class HomeComponent {
     }
   ];
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) {
+  }
 
   ngOnInit() {
-    this.productService.getBestSellers(8).subscribe(products => {
+  this.productService.getBestSellers(6).subscribe(products => {
       this.bestSellers = products;
     }, error => {
-        console.error('Erro ao buscar os melhores vendedores', error);
+        console.error('Erro ao buscar os mais vendidos', error);
     });
 
-  this.productService.getMostRecents(8).subscribe(products => {
+  this.productService.getMostRecents(6).subscribe(products => {
     this.mostRecents = products;
   }, error => {
-      console.error('Erro ao buscar os melhores vendedores', error);
+      console.error('Erro ao buscar os produtos mais recentes', error);
   });
+
+  this.productService.findByFeature(true).subscribe(products => {
+    this.feature = products;
+  }, error => {
+      console.error('Erro ao buscar os produtos em destaque', error);
+  });
+
+  this.productService.findBySale(true).subscribe(products => {
+    this.sale = products;
+  }, error => {
+      console.error('Erro ao buscar os produtos em promoção', error);
+  });
+
 }
+
 }
