@@ -32,6 +32,7 @@ public class ProductController {
         List<ProductDto> list = service.findByFavorite(favorite);
         return ResponseEntity.ok().body(list);
     }
+
     // URL = /products?notSale=
     @GetMapping("/findBySale")
     public ResponseEntity<List<ProductDto>> findBySale(
@@ -40,6 +41,7 @@ public class ProductController {
         List<ProductDto> list = service.findBySale(sale);
         return ResponseEntity.ok().body(list);
     }
+    
     // URL = /products/findByFeature?notFeature=
     @GetMapping("/findByFeature")
     public ResponseEntity<List<ProductDto>> findByFeature(
