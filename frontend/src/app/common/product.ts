@@ -4,6 +4,7 @@ import { ProductDetails } from './product-details';
 import { Subcategory } from './subcategory';
 
 export interface Product {
+
   id: string;
   sku: string;
   name: string;

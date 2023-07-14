@@ -14,6 +14,13 @@ import { HomeComponent } from './home/home.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CarouselModule } from 'primeng/carousel';
 import { RouterModule } from '@angular/router';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { TableModule } from 'primeng/table';
+import { DividerModule } from 'primeng/divider';
+import { TabViewModule } from 'primeng/tabview';
+import { BooleanPipe } from '../shared/pipe/boolean.pipe';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 @NgModule({
     declarations: [
@@ -21,8 +28,10 @@ import { RouterModule } from '@angular/router';
         HeaderComponent,
         ProductListComponent,
         CurrencyFormatPipe,
+        BooleanPipe,
         HomeComponent,
-        ProductDetailComponent
+        ProductDetailComponent,
+        BreadcrumbComponent
     ],
     exports: [
         FooterComponent,
@@ -31,14 +40,19 @@ import { RouterModule } from '@angular/router';
     ],
     imports: [
       CommonModule,
+      DropdownModule,
+      InputNumberModule,
       FormsModule,
       CheckoutModule,
       ImageModule,
+      TableModule,
       RatingModule,
+      TabViewModule,
       ButtonModule,
       InputTextModule,
       CarouselModule,
-      RouterModule
+      RouterModule,
+      DividerModule
     ]
 })
 export class ComponentsModule {}

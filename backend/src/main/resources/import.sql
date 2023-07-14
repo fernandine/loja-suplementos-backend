@@ -95,9 +95,9 @@ INSERT INTO tb_product (sku, name, description, image, favorite, feature, sale, 
 -- -----------------------------------------------------
 -- Reviews
 -- -----------------------------------------------------
---INSERT INTO tb_review (comment, rating, product_id, user_id) VALUES ('Adorei o conjuntinho de bebê.', 3, 1, 1);
---INSERT INTO tb_review (comment, rating, product_id, user_id) VALUES ('Gostei e recomendo!', 4, 1, 2);
---INSERT INTO tb_review (comment, rating, product_id, user_id) VALUES ('Que linda roupa!!!', 5, 3, 1);
+INSERT INTO tb_review (comment, rating, product_id, user_id) VALUES ('O Whey Protein da Max é uma delícia!.', 3, 1, 1);
+INSERT INTO tb_review (comment, rating, product_id, user_id) VALUES ('Gostei e recomendo!', 4, 1, 2);
+INSERT INTO tb_review (comment, rating, product_id, user_id) VALUES ('Realmente muito saboroso.', 5, 3, 1);
 -- -----------------------------------------------------
 -- Discounts
 -- -----------------------------------------------------

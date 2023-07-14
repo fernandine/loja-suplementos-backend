@@ -1,1 +1,87 @@
-<p>register works!</p>
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+  <div class="flex flex-column align-items-center justify-content-center">
+          <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+              <div class="text-center mb-5">
+                  <div class="text-900 text-3xl font-medium mb-3">Cadastre-se</div>
+                  <span class="text-600 font-medium line-height-3">Ainda não tem conta conosco?</span>
+                  <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer" routerLink="/register">Criar Conta!</a>
+              </div>
+              <form [formGroup]="userForm" (ngSubmit)="onRegister()">
+
+                <!--INPUT FIRSTNAME-->
+                  <label for="firstName" class="block text-900 text-xl font-medium mb-2">Nome</label>
+                  <input
+                  pInputText
+                  style="padding:1rem"
+                  class="w-full md:w-30rem mb-5"
+                  formControlName="firstName"
+                  />
+                  <!--INPUT LASTNAME-->
+                  <label for="lastName" class="block text-900 text-xl font-medium mb-2">Sobrenome</label>
+                  <input
+                  pInputText
+                  style="padding:1rem"
+                  class="w-full md:w-30rem mb-5"
+                  formControlName="lastName"
+                  />
+                  <!--INPUT EMAIL-->
+                  <label for="email" class="block text-900 text-xl font-medium mb-2">Email</label>
+                  <input
+                  pInputText
+                  style="padding:1rem"
+                  class="w-full md:w-30rem mb-5"
+                  formControlName="email"
+                  />
+
+                  <!--INPUT CPF-->
+                  <label for="cpf" class="block text-900 text-xl mb-2 mt-5">CPF</label>
+                  <input
+                  pInputText
+                  style="padding:1rem"
+                  formControlName="cpf"
+                  class="w-full md:w-30rem mb-5"
+                  />
+
+                  <!--INPUT BIRTHDATY-->
+                  <label for="birthDay" class="block text-900 font-medium text-xl mb-2">Data de Nascimento</label>
+                  <p-inputMask formControlName="birthDay" mask="99/99/9999" placeholder="__/__/____" slotChar="mm/dd/yyyy" styleClass="w-full md:w-30rem mb-5"></p-inputMask>
+
+                  <!--INPUT PASSWORD-->
+                  <label for="password" class="block text-900 font-medium text-xl mb-2">Senha</label>
+                  <p-password formControlName="password" inputStyleClass="w-full p-3 md:w-30rem">
+                  <ng-template  pTemplate="header">
+                  <h6>Senha</h6>
+                  </ng-template>
+                  <ng-template pTemplate="footer">
+                   <p-divider></p-divider>
+                   <div class="m-2 text-center">
+                    <strong>Sugestões</strong>
+                   </div>
+                   <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                   <li>Deve conter pelo menos 1 letra maiúscula</li>
+                   <li>Deve conter pelo menos 1 letra minúscula</li>
+                   <li>Mínimo de 8 caracteres</li>
+                   </ul>
+                   </ng-template>
+                  </p-password>
+
+                  <!--REPEAT PASSWORD-->
+                  <label for="password" class="block text-900 font-medium text-xl mt-5 mb-2">Repita a Senha</label>
+                  <p-password
+                  formControlName="password"
+                  inputStyleClass="w-full p-3 md:w-30rem"
+                  ></p-password>
+
+                  <div class="py-4 text-800" >
+                    <span>Ao criar a conta, você concorda com a nossa <a href="https://www.fernandinesuplementos.com.br/politica-de-privacidade">Política de Privacidade</a>.</span>
+                  </div>
+                  <span></span>
+
+                  <div class="flex align-items-center justify-content-between mt-5 gap-5">
+                    <button pButton pRipple label="Cadastrar" class="w-full p-3 text-xl" type="submit"></button>
+                  </div>
+
+                </form>
+  </div>
+  </div>
+</div>

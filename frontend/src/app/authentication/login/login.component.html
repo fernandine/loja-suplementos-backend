@@ -1,1 +1,83 @@
-<p>login works!</p>
+<div
+  class="surface-ground py-5 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden"
+>
+  <div class="flex flex-column align-items-center justify-content-center">
+    <div
+      class="w-full surface-card py-8 px-5 sm:px-8"
+      style="border-radius: 53px"
+    >
+      <div class="text-center mb-5">
+        <div class="text-900 text-3xl font-medium mb-3">Login</div>
+        <span class="text-600 font-medium line-height-3"
+          >Ainda não tem conta?</span
+        >
+        <a
+          class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
+          routerLink="/register"
+          >Cadastre-se!</a
+        >
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!--INPUT USERNAME-->
+        <label for="username" class="block text-900 text-xl font-medium mb-2"
+          >Email</label
+        >
+        <input
+          pInputText
+          style="padding: 1rem"
+          class="w-full md:w-30rem mb-5"
+          formControlName="username"
+        />
+        <!--INPUT PASSWORD-->
+        <label for="password" class="block text-900 font-medium text-xl mb-2"
+          >Senha</label
+        >
+        <p-password
+          formControlName="password"
+          id="password"
+          placeholder="Senha"
+          [toggleMask]="true"
+          styleClass="mb-5"
+          inputStyleClass="w-full p-3 md:w-30rem"
+        ></p-password>
+
+        <div class="flex align-items-center justify-content-between mb-5 gap-5">
+          <a
+            class="font-medium no-underline ml-2 text-right cursor-pointer"
+            style="color: var(--primary-color)"
+            >Esqueceu a senha?</a
+          >
+        </div>
+        <button
+          pButton
+          pRipple
+          label="Entrar"
+          class="w-full p-3 text-xl"
+          [disabled]="!form.valid"
+        ></button>
+      </form>
+
+      <p-divider align="center" styleClass="my-4">
+        <span class="text-600 font-normal text-sm">OU</span>
+      </p-divider>
+
+      <div class="flex justify-content-between">
+        <button
+          pRipple
+          class="mr-2 w-6 font-medium border-1 surface-border surface-100 py-3 px-2 p-component hover:surface-200 active:surface-300 text-900 cursor-pointer transition-colors transition-duration-150 inline-flex align-items-center justify-content-center"
+        >
+          <i class="pi pi-facebook text-indigo-500 mr-2"></i>
+          <span>Entrar com o Facebook</span>
+        </button>
+        <button
+          pRipple
+          class="ml-2 w-6 font-medium border-1 surface-border surface-100 py-3 px-2 p-component hover:surface-200 active:surface-300 text-900 cursor-pointer transition-colors transition-duration-150 inline-flex align-items-center justify-content-center"
+        >
+          <i class="pi pi-google text-red-500 mr-2"></i>
+          <span>Entrar com o Google</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

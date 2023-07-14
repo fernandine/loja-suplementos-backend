@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "primeng/resources/themes/saga-green/theme.css";
+//@import "primeng/resources/themes/saga-green/theme.css";
+@import 'assets/theme.css';
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
@@ -8,15 +9,16 @@
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
 @import url('https://fonts.googleapis.com/css2?family=Urbanist&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-//@import 'assets/theme.css';
+// Resto do seu código styles.scss
 
 * {
   margin: 0;
 }
 
 body {
-  font-family: "Urbanist", Helvetica, sans-serif;
-  background-color: rgb(31, 31, 31);
+  font-family: 'Roboto', 'Urbanist', Helvetica, sans-serif;
   color: rgb(255, 255, 255);
 }
+

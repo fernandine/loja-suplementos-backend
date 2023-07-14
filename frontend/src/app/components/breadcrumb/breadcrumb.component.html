@@ -1,0 +1,13 @@
+<div class="px-4 py-4 md:px-6 lg:px-8">
+  <ul class="list-none p-3 m-0 flex align-items-center font-medium overflow-x-auto">
+    <li *ngFor="let item of path; let last = last" class="px-2">
+      <ng-container *ngIf="!last; else lastItem">
+        <i class="pi pi-angle-right text-yellow-500"></i>
+      </ng-container>
+      <ng-template #lastItem>
+        <i class="pi pi-home text-yellow-500"></i>
+      </ng-template>
+      <a class="cursor-pointer text-100 white-space-nowrap">{{ item }}</a>
+    </li>
+  </ul>
+</div>

@@ -7,14 +7,11 @@ import { AppComponent } from './app.component';
 import { CheckoutModule } from './checkout/checkout.module';
 import { ComponentsModule } from './components/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './authentication/login/login.component';
-import { RegisterComponent } from './authentication/register/register.component';
+import { AuthModule } from './authentication/auth.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +19,8 @@ import { RegisterComponent } from './authentication/register/register.component'
     AppRoutingModule,
     HttpClientModule,
     CheckoutModule,
-    ComponentsModule
+    ComponentsModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
