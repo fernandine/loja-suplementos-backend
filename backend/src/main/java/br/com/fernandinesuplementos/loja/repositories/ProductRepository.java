@@ -1,12 +1,14 @@
 package br.com.fernandinesuplementos.loja.repositories;
 
 import br.com.fernandinesuplementos.loja.entities.Product;
+import br.com.fernandinesuplementos.loja.entities.enums.Flavors;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -37,4 +39,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p JOIN p.category c WHERE c.name = :name")
     List<Product> findByNameCategory(@Param("name") String name);
+
+    @Query("SELECT p FROM Product p JOIN p.details d WHERE d.flavors = :flavors")
+    List<Product> findByFlavor(@Param("flavors") Flavors flavors);
+
+    List<Product> findByUnitPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
 }

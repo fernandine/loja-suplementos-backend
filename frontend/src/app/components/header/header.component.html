@@ -17,7 +17,7 @@ style="background-color: #FFD62D;">
   <div class=" bg-gray-700 align-items-center justify-content-center lg:flex lg:static w-full lg:px-0">
     <ul class="list-none flex lg:align-items-center text-900 select-none flex-column lg:flex-row cursor-pointer">
       <li>
-          <a pRipple routerLink="/account" class="no-underline flex px-0 lg:px-5 py-3 align-items-center text-0 font-medium transition-colors transition-duration-150">
+          <a pRipple routerLink="/account/order-history" class="no-underline flex px-0 lg:px-5 py-3 align-items-center text-0 font-medium transition-colors transition-duration-150">
             <i class="pi pi-shopping-bag mr-2"></i>
             <span>Meus Pedidos</span>
           </a>
@@ -46,7 +46,7 @@ style="background-color: #FFD62D;">
 <!--TOPO 3-->
 <nav class="py-5 px-6 flex align-items-between justify-content-between relative lg:static" style="min-height: 84px">
   <img src="../../../assets/images/logo.png" alt="Image" height="80" class="px-6">
-  <a pRipple class="cursor-pointer block lg:hidden text-600" pStyleClass="@next" enterClass="hidden" leaveToClass="hidden" hideOnOutsideClick="true">
+  <a pRipple class="cursor-pointer block lg:hidden text-600" pStyleClass="@next" enterClass="hidden" leaveToClass="hidden" >
       <i class="pi pi-bars text-4xl"></i>
   </a>
   <div class="align-items-center flex-grow-1 hidden lg:flex absolute lg:static w-full left-0 top-100 z-1">
@@ -67,9 +67,9 @@ style="background-color: #FFD62D;">
               <i class="pi pi-sign-in mr-2 sm:mr-3 text-sm"></i>
               <span>Login</span>
           </a>
-          <div *ngIf="(isLoggedIn)" routerLink="/account" class="cursor-pointer flex flex-column">
-          <a  pRipple icon="pi pi-user" class="text-100 no-underline font-bold align-items-center px-3">
-            Olá, {{ getUsername() }}
+          <div *ngIf="isLoggedIn && user" routerLink="/account" class="cursor-pointer flex flex-column">
+          <a pRipple icon="pi pi-user" class="text-100 no-underline font-bold align-items-center px-3">
+            Olá, {{ user.firstName }}
           </a>
           <a pRipple class="mt-1 no-underline text-100 font-medium align-items-center px-3">
             Meus Pedidos

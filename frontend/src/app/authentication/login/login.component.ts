@@ -27,6 +27,10 @@ export class LoginComponent {
     });
   }
 
+  onRegister() {
+    this.router.navigate(['/register']);
+  }
+
   onSubmit(): void {
     if (this.form.valid) {
       this.authService.login(this.form.value.username, this.form.value.password).subscribe((success) => {

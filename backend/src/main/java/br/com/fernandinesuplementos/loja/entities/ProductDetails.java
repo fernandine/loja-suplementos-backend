@@ -1,5 +1,7 @@
 package br.com.fernandinesuplementos.loja.entities;
 
+import br.com.fernandinesuplementos.loja.entities.enums.Flavors;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,12 +22,14 @@ public class ProductDetails implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String flavor; //sabor
-    private BigDecimal wheight; // peso
+    @Enumerated(EnumType.STRING)
+    private Flavors flavors;
+    private BigDecimal wheight;
     private String brand;
     private Boolean gluten;
     private Boolean lactose;
     private Boolean vegan;
+
     @OneToMany(mappedBy = "details")
     private List<Product> products = new ArrayList<>();
 

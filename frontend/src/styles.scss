@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 //@import "primeng/resources/themes/saga-green/theme.css";
-@import 'assets/theme.css';
+@import 'primeng/resources/themes/bootstrap4-light-blue/theme.css';
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
@@ -20,5 +20,6 @@
 body {
   font-family: 'Roboto', 'Urbanist', Helvetica, sans-serif;
   color: rgb(255, 255, 255);
+  background-color: rgb(24, 24, 24);
 }
 

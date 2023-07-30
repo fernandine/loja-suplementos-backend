@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/common/Category';
+import { User } from 'src/app/common/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CategoryService } from 'src/app/services/category.service';
-import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-header',
@@ -14,14 +14,14 @@ export class HeaderComponent {
 
   categories: Category[] = [];
   isLoggedIn!: boolean;
-  username: string = '';
+  user: User | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private categoryService: CategoryService,
     private router: Router,
-    private authService: AuthService,
-    private loginService: LoginService) { }
+    private authService: AuthService
+    ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(() => {
@@ -29,12 +29,10 @@ export class HeaderComponent {
     })
 
     this.isLoggedIn = this.authService.isAuthenticated();
-    this.username = this.getUsername();
-    this.loginService.getLoginObservable().subscribe((loggedIn: boolean) => {
-      this.isLoggedIn = loggedIn;
-      this.username = loggedIn ? this.getUsername() : '';
-    });
-  }
+    const storedUser = localStorage.getItem('user');
+    this.user = storedUser ? JSON.parse(storedUser) : null;
+    console.log('user = ' + this.user)
+    }
 
   listCategories() {
     this.categoryService.getCategory().subscribe(
@@ -48,11 +46,6 @@ export class HeaderComponent {
     this.categoryService.setSelectedCategory(category);
     const categoryName = category.name;
     this.router.navigateByUrl(`products/categories/${categoryName}`);
-  }
-
-  getUsername(): string {
-    const currentUser = this.authService.getCurrentUser();
-    return currentUser ? currentUser.firstName : '';
   }
 
   logout(): void {

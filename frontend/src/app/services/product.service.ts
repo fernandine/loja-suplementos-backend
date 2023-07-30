@@ -2,7 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Category } from '../common/Category';
+import { PriceRange } from '../common/price-range';
 import { Product } from '../common/product';
+import { ProductDetails } from '../common/product-details';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +28,14 @@ export class ProductService {
 
   getMostRecents(limit: number): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.baseUrl}/most-recents?limit=${limit}`);
+  }
+
+  getProductsByPriceRange(priceRange: PriceRange): Observable<Product[]> {
+    const params = {
+      minPrice: priceRange.minPrice.toString(),
+      maxPrice: priceRange.maxPrice.toString()
+    };
+    return this.http.get<Product[]>(`${this.baseUrl}/price-range`, { params });
   }
 
   findByFavorite(favorite: boolean): Observable<Product[]> {
@@ -92,11 +103,13 @@ export class ProductService {
       })
       );
   }
-/*
-  getProductList(currentCategoryName: number): Observable<Product[]> {
-    const searchUrl = `${this.baseUrl}/categories?name=${currentCategoryName}`;
-    return this.getProductSearch(searchUrl)
-  }*/
+
+  getProductsByFilters(flavorFilter: string[], category: Category[]): Observable<Product[]> {
+    const url = `${this.baseUrl}/flavors/${flavorFilter}`;
+    return this.http.get<Product[]>(url);
+  }
+
+
 
   getProductSearch(searchUrl: string): Observable<Product[]> {
     return this.http.get<Product[]>(searchUrl)

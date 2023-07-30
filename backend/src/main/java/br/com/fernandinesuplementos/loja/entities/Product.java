@@ -27,7 +27,7 @@ public class Product implements Serializable {
     @Column(name = "description")
     private String description;
     @Column(name = "unit_price")
-    private BigDecimal unitPrice;
+    private Double unitPrice;
     private Long EAN;
     @Column(name = "image")
     private String image;
@@ -55,9 +55,17 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<Discount> discounts = new ArrayList<>();
+
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "details_id")
     private ProductDetails details;
+
+    @JsonIgnore
+    @ManyToOne()
+    @JoinColumn(name = "price_range_id")
+    private PriceRange priceRange;
 }

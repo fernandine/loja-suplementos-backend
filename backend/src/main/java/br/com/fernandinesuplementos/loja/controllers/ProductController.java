@@ -1,6 +1,8 @@
 package br.com.fernandinesuplementos.loja.controllers;
 
 import br.com.fernandinesuplementos.loja.DTOs.ProductDto;
+import br.com.fernandinesuplementos.loja.entities.Product;
+import br.com.fernandinesuplementos.loja.entities.enums.Flavors;
 import br.com.fernandinesuplementos.loja.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 
@@ -31,6 +34,11 @@ public class ProductController {
             ) {
         List<ProductDto> list = service.findByFavorite(favorite);
         return ResponseEntity.ok().body(list);
+    }
+    @GetMapping("/price-range")
+    public ResponseEntity<List<Product>> getProductsByPriceRange(@RequestParam BigDecimal minPrice, @RequestParam BigDecimal maxPrice) {
+        List<Product> products = service.findProductsByPriceRange(minPrice, maxPrice);
+        return ResponseEntity.ok(products);
     }
 
     // URL = /products?notSale=
@@ -77,7 +85,11 @@ public class ProductController {
         List<ProductDto> mostRecentProducts = service.findMostRecentProductsByCreationDate(limit);
         return ResponseEntity.ok(mostRecentProducts);
     }
-
+    @GetMapping("/flavors/{flavors}")
+    public ResponseEntity<List<Product>> getProductsByFlavor(@PathVariable Flavors flavors) {
+        List<Product> products = service.getProductsByFlavor(flavors);
+        return ResponseEntity.ok(products);
+    }
     @PostMapping
     public ResponseEntity<ProductDto> insert(@Valid @RequestBody ProductDto dto) {
         dto = service.insert(dto);

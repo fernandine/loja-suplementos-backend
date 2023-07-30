@@ -1,34 +1,20 @@
 package br.com.fernandinesuplementos.loja.services;
 
 import br.com.fernandinesuplementos.loja.entities.User;
-import br.com.fernandinesuplementos.loja.repositories.UserRepository;
-import br.com.fernandinesuplementos.loja.services.exceptions.ResourceNotFoundException;
-import br.com.fernandinesuplementos.loja.services.exceptions.UnauthorizedException;
+import br.com.fernandinesuplementos.loja.services.exceptions.ForbiddenException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
-    @Transactional(readOnly = true)
-    public User authenticated() {
-        try {
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
-            return userRepository.findByEmail(username);
-        } catch (Exception e) {
-            throw new UnauthorizedException("Invalid user");
-        }
-    }
-
-    public void validadeMember(Long userId) {
-        User user = authenticated();
-        if (!user.hasHole("ROLE_USER")) {
-            throw new ResourceNotFoundException("Invalid user");
+    public void validateSelfOrAdmin(long userId) {
+        User me = userService.authenticated();
+        if (!me.hasRole("ROLE_ADMIN") && !me.getId().equals(userId)) {
+            throw new ForbiddenException("Access denied");
         }
     }
 }

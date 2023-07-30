@@ -23,7 +23,7 @@ export class CartStatusComponent {
   }
 
   goCheckoutCart() {
-    this.router.navigate(["/checkout/cart-details"])
+    this.router.navigate(["/cart-details"])
   }
 
   updateCartStatus() {

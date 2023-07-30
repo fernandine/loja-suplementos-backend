@@ -1,9 +1,6 @@
 package br.com.fernandinesuplementos.loja.services;
 
-import br.com.fernandinesuplementos.loja.DTOs.RoleDto;
 import br.com.fernandinesuplementos.loja.DTOs.UserDto;
-import br.com.fernandinesuplementos.loja.DTOs.UserInsertDto;
-import br.com.fernandinesuplementos.loja.DTOs.UserUpdateDto;
 import br.com.fernandinesuplementos.loja.entities.Role;
 import br.com.fernandinesuplementos.loja.entities.User;
 import br.com.fernandinesuplementos.loja.projections.UserDetailsProjection;
@@ -19,10 +16,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,9 +34,6 @@ public class UserService implements UserDetailsService {
 
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
-//    @Autowired
-//    private BCryptPasswordEncoder passwordEncoder;
-
     @Autowired
     private UserRepository repository;
 
@@ -47,50 +43,36 @@ public class UserService implements UserDetailsService {
     @Autowired
     private AddressRepository addressRepository;
 
-    @Autowired
-    private AuthService authService;
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     @Transactional(readOnly = true)
     public List<UserDto> findAll() {
         List<User> list = repository.findAll();
-        return list.stream()
-                .map(order -> modelMapper.map(order, UserDto.class))
-                .collect(Collectors.toList());
+        return list.stream().map(UserDto::new).collect(Collectors.toList());
     }
-    @Transactional(readOnly = true)
-    public UserDto getAuthUser() {
-        User user = authService.authenticated();
-
-        return modelMapper.map(user, UserDto.class);
-   }
 
     @Transactional(readOnly = true)
     public UserDto findById(Long id) {
         Optional<User> obj = repository.findById(id);
         User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
-        return modelMapper.map(entity, UserDto.class);
+        return new UserDto(entity);
     }
 
     @Transactional
-    public UserDto insert(UserInsertDto dto) {
+    public UserDto insert(UserDto dto) {
         User entity = new User();
         copyDtoToEntity(dto, entity);
-//        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity = repository.save(entity);
-        return modelMapper.map(entity, UserDto.class);
+        return new UserDto(entity);
     }
 
     @Transactional
-    public UserDto update(Long id, UserUpdateDto dto) {
+    public UserDto update(Long id, UserDto dto) {
         try {
             User entity = repository.getReferenceById(id);
 
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
-            return modelMapper.map(entity, UserDto.class);
+            return new UserDto(entity);
         }
         catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
@@ -111,19 +93,12 @@ public class UserService implements UserDetailsService {
 
     private void copyDtoToEntity(UserDto dto, User entity) {
 
-        entity.setFirstName(dto.getFirstName());
-        entity.setLastName(dto.getLastName());
+        entity.setName(dto.getName());
         entity.setEmail(dto.getEmail());
         entity.setPhone(dto.getPhone());
         entity.setCpf(dto.getCpf());
         entity.setBirthDay(dto.getBirthDay());
 
-
-        entity.getRoles().clear();
-        for (RoleDto roleDto : dto.getRoles()) {
-            Role role = roleRepository.getReferenceById(roleDto.getId());
-            entity.getRoles().add(role);
-        }
     }
 
     @Override
@@ -143,4 +118,17 @@ public class UserService implements UserDetailsService {
 
         return user;
     }
+
+    protected User authenticated() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Jwt jwtPrincipal = (Jwt) authentication.getPrincipal();
+            String username = jwtPrincipal.getClaim("username");
+            return repository.findByEmail(username).get();
+        }
+        catch (Exception e) {
+            throw new UsernameNotFoundException("Invalid user");
+        }
+    }
+
 }

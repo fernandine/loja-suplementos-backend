@@ -1,32 +1,120 @@
 package br.com.fernandinesuplementos.loja.DTOs;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import br.com.fernandinesuplementos.loja.entities.Address;
+import br.com.fernandinesuplementos.loja.entities.User;
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class UserDto implements Serializable {
 
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String cpf;
     private String phone;
     private Instant birthDay;
     @Email
     private String email;
-    private Set<RoleDto> roles;
-    private Set<AddressDto> addressList;
+    private List<String> roles = new ArrayList<>();
+    private List<AddressDto> addressList = new ArrayList<>();
 
+    public UserDto() {
+    }
+
+    public UserDto(Long id, String name, String cpf,
+                   String phone, Instant birthDay, String email) {
+        this.id = id;
+        this.name = name;
+        this.cpf = cpf;
+        this.phone = phone;
+        this.birthDay = birthDay;
+        this.email = email;
+    }
+
+    public UserDto(User entity) {
+        id = entity.getId();
+        name = entity.getName();
+        email = entity.getEmail();
+        phone = entity.getPhone();
+        cpf = entity.getCpf();
+        birthDay = entity.getBirthDay();
+
+        for (Address address : entity.getAddressList()) {
+            AddressDto addressDto = new AddressDto(address);
+            addressList.add(addressDto);
+        }
+
+        for (GrantedAuthority role : entity.getAuthorities()) {
+            roles.add(role.getAuthority());
+        }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Instant getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(Instant birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
+    public List<AddressDto> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<AddressDto> addressList) {
+        this.addressList = addressList;
+    }
 }

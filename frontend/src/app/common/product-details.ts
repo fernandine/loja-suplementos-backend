@@ -1,8 +1,9 @@
 import Decimal from 'decimal.js';
+import { Flavors } from './enums/flavors.enum';
 
 export interface ProductDetails {
   id: string;
-  flavor: string;
+  flavors: Flavors;
   wheight: Decimal;
   brand: string;
   gluten: boolean;

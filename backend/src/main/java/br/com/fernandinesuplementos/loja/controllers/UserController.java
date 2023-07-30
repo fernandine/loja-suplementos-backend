@@ -1,8 +1,7 @@
 package br.com.fernandinesuplementos.loja.controllers;
 
 import br.com.fernandinesuplementos.loja.DTOs.UserDto;
-import br.com.fernandinesuplementos.loja.DTOs.UserInsertDto;
-import br.com.fernandinesuplementos.loja.DTOs.UserUpdateDto;
+
 import br.com.fernandinesuplementos.loja.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +25,6 @@ public class UserController {
 		return ResponseEntity.ok().body(list);
 	}
 
-	@GetMapping(value = "/profile")
-	public ResponseEntity<UserDto> getAuthdUser() {
-		UserDto dto = service.getAuthUser();
-		return ResponseEntity.ok().body(dto);
-	}
-
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserDto> findById(@PathVariable Long id) {
 		UserDto dto = service.findById(id);
@@ -39,7 +32,7 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<UserDto> insert(@RequestBody @Valid UserInsertDto dto) {
+	public ResponseEntity<UserDto> insert(@RequestBody @Valid UserDto dto) {
 		UserDto newDto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDto.getId()).toUri();
@@ -47,7 +40,7 @@ public class UserController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody @Valid UserUpdateDto dto) {
+	public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody @Valid UserDto dto) {
 		UserDto newDto = service.update(id, dto);
 		return ResponseEntity.ok().body(newDto);
 	}

@@ -20,20 +20,21 @@
         <span class="mr-3">
           <p-rating [(ngModel)]="product.rating" [cancel]="false" [disabled]="true"></p-rating>
         </span>
-        <span class="text-sm"><b class="text-900 mr-1">24</b> <span class="text-500"></span>avaliações</span>
+        <span class="text-sm"><b class="text-200 mr-1">24</b> <span class="text-500"></span>avaliações</span>
       </div>
       <div class="mt-2"><span class="text-500" >sku:{{product.sku}}</span></div>
       <div class="flex align-items-center justify-content-between mt-5 mb-3">
-        <span class="text-900 font-medium text-4xl block text-red-500">{{ product.unitPrice | currencyFormat }}</span>
+        <span class="text-900 font-medium text-4xl block text-red-500">{{ product.unitPrice }}</span>
       </div>
 
       <div *ngIf="product.details">
       <div class="font-medium text-100 mb-3">Selecione o sabor: </div>
-      <div class="text-center border-1 p-2 border-round w-2">{{ product.details.flavor }}</div>
+      <div class="text-center border-1 p-2 border-round w-2">{{ product.details.flavors }}</div>
       <div class="font-normal text-400 my-3">Contém Glúten? {{ product.details.gluten | boolean }}</div>
       <div class="font-normal text-400 mb-3">Contém Lactose? {{ product.details.lactose | boolean }}</div>
       <div class="font-normal text-400 mb-3">É Vegano? {{ product.details.vegan | boolean }}</div>
       </div>
+      <p-divider></p-divider>
                 <div class="flex align-items-center mb-5">
                     <i class="pi pi-question-circle text-600 mr-3"></i>
                     <span class="mr-3">Precisa de ajuda com o produto?</span>
@@ -67,7 +68,7 @@
       <div class="grid mt-4">
           <div class="col-12 lg:col-4">
               <div class="font-medium text-xl text-900 mb-3">Conte sua experiência</div>
-              <p class="text-600 p-0 mt-0 mb-3 line-height-3"> "Sua opinião é muito importante para nós! Queremos saber como foi sua experiência. Clique no botão 'Quero Avaliar' ou 'Conte sua Experiência' e deixe seu comentário. Sua avaliação nos ajuda a melhorar sempre!"</p>
+              <p class="text-600 p-0 mt-0 mb-3 line-height-3"> "Sua opinião é muito importante para nós! Clique no botão 'Quero Avaliar' e deixe seu comentário. Sua avaliação nos ajuda a melhorar sempre!"</p>
               <button pButton pRipple label="QUERO AVALIAR" class="p-button-rounded"></button>
           </div>
           <div class="col-12 lg:col-4 flex align-items-start justify-content-center py-5 lg:py-0">

@@ -2,6 +2,7 @@ package br.com.fernandinesuplementos.loja.services;
 
 import br.com.fernandinesuplementos.loja.DTOs.ProductDetailsDto;
 import br.com.fernandinesuplementos.loja.entities.ProductDetails;
+import br.com.fernandinesuplementos.loja.entities.enums.Flavors;
 import br.com.fernandinesuplementos.loja.repositories.ProductDetailsRepository;
 import br.com.fernandinesuplementos.loja.services.exceptions.DatabaseException;
 import br.com.fernandinesuplementos.loja.services.exceptions.ResourceNotFoundException;
@@ -74,7 +75,7 @@ public class ProductDetailsService {
 
         entity.setId(dto.getId());
         entity.setBrand(dto.getBrand());
-        entity.setFlavor(dto.getFlavor());
+        entity.setFlavors(dto.getFlavors());
         entity.setGluten(dto.getGluten());
         entity.setLactose(dto.getLactose());
         entity.setVegan(dto.getVegan());

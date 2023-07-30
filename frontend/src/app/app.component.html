@@ -1,5 +1,11 @@
-<app-header></app-header>
+<ng-container *ngIf="currentRoute !== '/auth-login' && currentRoute !== '/register'">
+  <app-header></app-header>
+</ng-container>
+
 <router-outlet></router-outlet>
+
+<ng-container *ngIf="currentRoute !== '/auth-login' && currentRoute !== '/register'">
 <footer>
   <app-footer></app-footer>
 </footer>
+</ng-container>

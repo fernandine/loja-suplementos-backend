@@ -12,10 +12,9 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent {
+
   @Input() products: Product[] = [];
-
   categories!: Category[];
-
   currentCategoryName: string = '';
 
   constructor(

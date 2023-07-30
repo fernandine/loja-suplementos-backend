@@ -34,6 +34,10 @@ export class RegisterComponent {
     return this.userForm.controls;
   }
 
+  onLogin() {
+    this.router.navigate(['/auth-login']);
+  }
+
   onRegister() {
     console.log('Dados enviados:', this.userForm.value);
 
@@ -44,6 +48,9 @@ export class RegisterComponent {
     this.userService.createUser(this.userForm.value).subscribe(
       (response) => {
         console.log('Usuário registrado com sucesso!', response);
+
+        localStorage.setItem('user', JSON.stringify(response));
+
         this.router.navigate(['/auth-login']);
       },
       (error) => console.log('Erro ao registrar usuário', error)

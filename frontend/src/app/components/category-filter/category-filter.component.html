@@ -1,0 +1,65 @@
+<div class="px-4 md:px-6 py-2 lg:px-8">
+
+  <div style="position: relative; display: inline-block;">
+    <img alt="Card" src="../../../assets/images/banner_category.jpg" class="w-8 border-round" style="display: block; margin: 0 auto;" />
+    <div class="font-bold text-2xl mb-4 text-0 text-center pz-5 z-1" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">{{ selectedCategory.name }}</div>
+  </div>
+
+
+  <div class="flex flex-wrap lg:flex-nowrap">
+    <div class="col-fixed lg:col-2 mr-4 flex p-0 flex-column w-full lg:w-3">
+
+      <p-accordion [multiple]="true" styleClass="-mb-1 mt-8">
+        <p-accordionTab
+          [selected]="true"
+          header="Sabores ({{ flavors ? flavors.length : '0' }})"
+        >
+          <div
+            class="transition-all transition-duration-400 transition-ease-in-out"
+          >
+          <!--ABA SEARCH-->
+            <div class="mb-3">
+              <span class="p-input-icon-right w-full">
+                <i class="pi pi-search"></i>
+                <input
+                  type="text"
+                  pInputText
+                  placeholder="Buscar..."
+                  class="w-full"
+                />
+              </span>
+            </div>
+
+            <div class="flex flex-column w-full justify-content-between">
+              <div class="ml-3 field-checkbox" *ngFor="let flavor of flavors">
+                <input type="checkbox" [id]="'flavorFilter' + flavor.value" [(ngModel)]="flavor.selected" (change)="applyFilters()">
+                <label [for]="'flavorFilter' + flavor.value">{{ flavor.value }}</label>
+              </div>
+            </div>
+
+            <a tabindex="0" class="block cursor-pointer my-3 text-primary font-medium"
+            (click)="toggleShowAllFlavors()">
+              Mostrar mais...
+            </a>
+          </div>
+        </p-accordionTab>
+
+        <p-accordionTab [selected]="true" header="Price Range">
+          <div class="transition-all transition-duration-400 transition-ease-in-out">
+            <p-slider [(ngModel)]="rangeValues" [range]="true" styleClass="mt-3 mx-auto" [style]="{'max-width':'93%'}"></p-slider>
+            <div class="flex my-4">
+              <p-inputNumber [(ngModel)]="minPrice" inputStyleClass="w-full mr-3"></p-inputNumber>
+              <p-inputNumber [(ngModel)]="maxPrice" inputStyleClass="w-full"></p-inputNumber>
+            </div>
+          </div>
+        </p-accordionTab>
+
+
+
+      </p-accordion>
+    </div>
+
+<div class="w-full mt-3 lg:mt-0" style="min-height:25rem;">
+      <app-product-list [products]="products"></app-product-list>
+  </div>
+</div>

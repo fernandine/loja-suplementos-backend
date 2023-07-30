@@ -2,6 +2,8 @@ package br.com.fernandinesuplementos.loja.services;
 
 import br.com.fernandinesuplementos.loja.DTOs.ProductDto;
 import br.com.fernandinesuplementos.loja.entities.Product;
+import br.com.fernandinesuplementos.loja.entities.ProductDetails;
+import br.com.fernandinesuplementos.loja.entities.enums.Flavors;
 import br.com.fernandinesuplementos.loja.repositories.CategoryRepository;
 import br.com.fernandinesuplementos.loja.repositories.ProductRepository;
 import br.com.fernandinesuplementos.loja.services.exceptions.DatabaseException;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -101,6 +104,11 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<Product> findProductsByPriceRange(BigDecimal minPrice, BigDecimal maxPrice) {
+        return repository.findByUnitPriceBetween(minPrice, maxPrice);
+    }
+
     @Transactional
     public ProductDto insert(ProductDto dto) {
         Product entity = new Product();
@@ -108,7 +116,10 @@ public class ProductService {
         entity = repository.save(entity);
         return modelMapper.map(entity, ProductDto.class);
     }
-
+    @Transactional(readOnly = true)
+    public List<Product> getProductsByFlavor(Flavors flavors) {
+        return repository.findByFlavor(flavors);
+    }
     @Transactional
     public ProductDto update(Long id, ProductDto dto) {
         try {

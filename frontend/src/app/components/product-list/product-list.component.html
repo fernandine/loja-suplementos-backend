@@ -1,20 +1,20 @@
-<div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+<div class="px-4 py-8 md:px-6 lg:px-8">
   <div class="grid -mt-3 -ml-3 -mr-3">
       <div class="p-2 col-4 md:col-6 lg:col-4 mb-5 md:mb-0" *ngFor="let product of products" >
-        <div class="p-2">
-        <div class="relative mb-3 " >
-          <p-image [src]="product.image" alt="Imagem do produto {{product.name}}" width="250" routerLink="/products', product.id"/>
-          <span class="bg-pink-500 text-pink-50 font-bold px-2 py-1 absolute" style="border-radius: 1rem; right: 1rem; bottom: 1rem">-%25</span>
+        <div class="border-1 border-round border-yellow-100 p-4" style="height: 23rem;">
+        <div class="relative flex justify-content-start mb-2 " >
+          <p-image [src]="product.image" alt="Imagem do produto {{ product.name }}" width="150" routerLink="/products', product.id"/>
+          <span class="bg-pink-500 text-pink-50 font-bold px-2 py-1 absolute" style="border-radius: 1rem; right: 4rem; bottom: 1rem">-%25</span>
           <!--span class="bg-pink-500 text-pink-50 font-bold px-2 py-1 absolute" style="border-radius: 1rem; right: 1rem; bottom: 1rem">{{ discount }}</span-->
             </div>
 
-            <span class="text-900 font-medium text-lg">{{ product.name }}</span>
-            <div class="my-3">
+            <span class="text-100 font-normal text-base">{{ product.name }}</span>
+            <div class="my-2">
               <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" styleClass="mr-1"></p-rating>
               <!--span class="text-500">{{ reviews }}</span-->
             </div>
             <div class="mb-4">
-              <span class="font-bold text-900 ml-2">{{ product.unitPrice | currencyFormat }}</span>
+              <span class="font-bold text-400 ml-2">{{ product.unitPrice }}</span>
             </div>
             <!--
             <p-button

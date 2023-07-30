@@ -5,19 +5,18 @@ import { environment } from 'src/environments/environment';
 import { User } from '../common/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
   private userUrl = environment.shopUrl + '/users';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getUser(): Observable<User[]> {
     return this.http.get<User[]>(this.userUrl);
   }
 
-  getUserById(id: number):Observable<User> {
+  getUserById(id: number): Observable<User> {
     return this.http.get<User>(`${this.userUrl}/${id}`);
   }
 
@@ -32,5 +31,4 @@ export class UserService {
   deleteUser(id: number): Observable<any> {
     return this.http.delete(`${this.userUrl}/${id}`);
   }
-
 }

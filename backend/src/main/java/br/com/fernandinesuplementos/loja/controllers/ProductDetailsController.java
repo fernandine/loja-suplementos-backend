@@ -1,6 +1,8 @@
 package br.com.fernandinesuplementos.loja.controllers;
 
 import br.com.fernandinesuplementos.loja.DTOs.ProductDetailsDto;
+import br.com.fernandinesuplementos.loja.entities.ProductDetails;
+import br.com.fernandinesuplementos.loja.entities.enums.Flavors;
 import br.com.fernandinesuplementos.loja.services.ProductDetailsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

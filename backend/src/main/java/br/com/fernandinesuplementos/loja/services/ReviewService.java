@@ -43,23 +43,17 @@ public class ReviewService {
     @Transactional(readOnly = true)
     public ReviewDto insert(ReviewDto dto) {
         Review entity = new Review();
-      User user = authService.authenticated();
-        copyEntityToDTO(user, entity, dto);
+        copyEntityToDTO(entity, dto);
         entity = repository.save(entity);
         return modelMapper.map(entity, ReviewDto.class);
     }
 
-    public void copyEntityToDTO(User user, Review entity, ReviewDto dto) {
+    public void copyEntityToDTO(Review entity, ReviewDto dto) {
 
         entity.setComment(dto.getComment());
 
         Product product = productRepository.getReferenceById(dto.getProductId());
         entity.setProduct(product);
 
-        user.setId(userService.getAuthUser().getId());
-        user.setFirstName(userService.getAuthUser().getFirstName());
-        user.setLastName(userService.getAuthUser().getLastName());
-        user.setEmail(userService.getAuthUser().getEmail());
-        entity.setUser(user);
     }
 }
