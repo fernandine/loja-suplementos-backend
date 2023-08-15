@@ -9,12 +9,12 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class UserDto implements Serializable {
 
     private Long id;
-    private String name;
+    private String firstname;
+    private String lastname;
     private String cpf;
     private String phone;
     private Instant birthDay;
@@ -26,10 +26,11 @@ public class UserDto implements Serializable {
     public UserDto() {
     }
 
-    public UserDto(Long id, String name, String cpf,
-                   String phone, Instant birthDay, String email) {
+    public UserDto(Long id, String firstname, String lastname, String cpf, String phone,
+                   Instant birthDay, String email) {
         this.id = id;
-        this.name = name;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.cpf = cpf;
         this.phone = phone;
         this.birthDay = birthDay;
@@ -38,7 +39,8 @@ public class UserDto implements Serializable {
 
     public UserDto(User entity) {
         id = entity.getId();
-        name = entity.getName();
+        firstname = entity.getFirstname();
+        lastname = entity.getLastname();
         email = entity.getEmail();
         phone = entity.getPhone();
         cpf = entity.getCpf();
@@ -62,12 +64,20 @@ public class UserDto implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getCpf() {

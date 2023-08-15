@@ -3,7 +3,6 @@ package br.com.fernandinesuplementos.loja.services;
 import br.com.fernandinesuplementos.loja.DTOs.ReviewDto;
 import br.com.fernandinesuplementos.loja.entities.Product;
 import br.com.fernandinesuplementos.loja.entities.Review;
-import br.com.fernandinesuplementos.loja.entities.User;
 import br.com.fernandinesuplementos.loja.repositories.ProductRepository;
 import br.com.fernandinesuplementos.loja.repositories.ReviewRepository;
 import org.modelmapper.ModelMapper;

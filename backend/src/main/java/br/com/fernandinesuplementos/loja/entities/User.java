@@ -1,6 +1,5 @@
 package br.com.fernandinesuplementos.loja.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,8 +17,10 @@ public class User implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-
+    @Column(name = "first_name")
+    private String firstname;
+    @Column(name = "last_name")
+    private String lastname;
     private String cpf;
     private String phone;
     @Column(name = "birth_day",
@@ -47,10 +48,11 @@ public class User implements UserDetails, Serializable {
     public User() {
     }
 
-    public User(Long id, String name, String cpf, String phone, Instant birthDay,
-                String email, String password) {
+    public User(Long id, String firstname, String lastname, String cpf, String phone,
+                Instant birthDay, String email, String password) {
         this.id = id;
-        this.name = name;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.cpf = cpf;
         this.phone = phone;
         this.birthDay = birthDay;
@@ -66,12 +68,31 @@ public class User implements UserDetails, Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public String getCpf() {
@@ -134,11 +155,9 @@ public class User implements UserDetails, Serializable {
     public List<Order> getOrders() {
         return orders;
     }
-
     public void addRole(Role role) {
         roles.add(role);
     }
-
     public boolean hasRole(String roleName) {
         for (Role role : roles) {
             if (role.getAuthority().equals(roleName)) {

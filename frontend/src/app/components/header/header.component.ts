@@ -4,6 +4,8 @@ import { Category } from 'src/app/common/Category';
 import { User } from 'src/app/common/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { LoginService } from 'src/app/services/login.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -14,14 +16,15 @@ export class HeaderComponent {
 
   categories: Category[] = [];
   isLoggedIn!: boolean;
-  user: User | null = null;
+  username: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private categoryService: CategoryService,
     private router: Router,
-    private authService: AuthService
-    ) { }
+    private authService: AuthService,
+    private loginService: LoginService
+    ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(() => {
@@ -29,9 +32,16 @@ export class HeaderComponent {
     })
 
     this.isLoggedIn = this.authService.isAuthenticated();
-    const storedUser = localStorage.getItem('user');
-    this.user = storedUser ? JSON.parse(storedUser) : null;
-    console.log('user = ' + this.user)
+    this.username = this.getUsername();
+    this.loginService.getLoginObservable().subscribe((loggedIn: boolean) => {
+      this.isLoggedIn = loggedIn;
+      this.username = loggedIn ? this.getUsername() : '';
+    });
+    }
+
+    getUsername(): string {
+      const currentUser = this.authService.getCurrentUser();
+      return currentUser ? currentUser.firstname : '';
     }
 
   listCategories() {

@@ -12,7 +12,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class AddressListComponent {
   adresses$!: Observable<Address[]>;
-  userId!: string;
+  userId!: number;
 
   showAddAddressDialog = false;
 

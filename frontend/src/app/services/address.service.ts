@@ -17,7 +17,7 @@ export class AddressService {
     return this.http.get<Address[]>(this.apiUrl);
   }
 
-  getByUserId(userId: string): Observable<Address[]> {
+  getByUserId(userId: number): Observable<Address[]> {
     const url = `${this.apiUrl}/find?userId=${userId}`;
     return this.http.get<Address[]>(url);
   }

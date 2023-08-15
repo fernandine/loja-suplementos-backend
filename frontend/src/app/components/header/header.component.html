@@ -67,9 +67,9 @@ style="background-color: #FFD62D;">
               <i class="pi pi-sign-in mr-2 sm:mr-3 text-sm"></i>
               <span>Login</span>
           </a>
-          <div *ngIf="isLoggedIn && user" routerLink="/account" class="cursor-pointer flex flex-column">
+          <div *ngIf="isLoggedIn" routerLink="/account" class="cursor-pointer flex flex-column">
           <a pRipple icon="pi pi-user" class="text-100 no-underline font-bold align-items-center px-3">
-            Olá, {{ user.firstName }}
+            Olá, {{ getUsername() }}
           </a>
           <a pRipple class="mt-1 no-underline text-100 font-medium align-items-center px-3">
             Meus Pedidos

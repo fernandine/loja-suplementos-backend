@@ -1,6 +1,8 @@
 package br.com.fernandinesuplementos.loja.services;
 
 import br.com.fernandinesuplementos.loja.DTOs.UserDto;
+import br.com.fernandinesuplementos.loja.DTOs.UserInsertDto;
+import br.com.fernandinesuplementos.loja.DTOs.UserUpdateDto;
 import br.com.fernandinesuplementos.loja.entities.Role;
 import br.com.fernandinesuplementos.loja.entities.User;
 import br.com.fernandinesuplementos.loja.projections.UserDetailsProjection;
@@ -14,19 +16,27 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,10 +48,14 @@ public class UserService implements UserDetailsService {
     private UserRepository repository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private AddressRepository addressRepository;
 
     @Autowired
-    private AddressRepository addressRepository;
+    private RoleRepository roleRepository;
+
+    @Lazy
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Transactional(readOnly = true)
@@ -58,27 +72,32 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public UserDto insert(UserDto dto) {
+    public UserDto insert(UserInsertDto dto) {
         User entity = new User();
         copyDtoToEntity(dto, entity);
+
+        entity.getRoles().clear();
+        Role role = roleRepository.findByAuthority("ROLE_CLIENT");
+        entity.getRoles().add(role);
+
+        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity = repository.save(entity);
-        return new UserDto(entity);
-    }
+        return new UserDto(entity);    }
 
     @Transactional
-    public UserDto update(Long id, UserDto dto) {
+    public UserDto update(Long id, UserUpdateDto dto) {
         try {
             User entity = repository.getReferenceById(id);
 
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
-            return new UserDto(entity);
-        }
+            return new UserDto(entity);        }
         catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
         }
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
         try {
             repository.deleteById(id);
@@ -93,14 +112,22 @@ public class UserService implements UserDetailsService {
 
     private void copyDtoToEntity(UserDto dto, User entity) {
 
-        entity.setName(dto.getName());
+        entity.setFirstname(dto.getFirstname());
+        entity.setLastname(dto.getLastname());
         entity.setEmail(dto.getEmail());
         entity.setPhone(dto.getPhone());
         entity.setCpf(dto.getCpf());
-        entity.setBirthDay(dto.getBirthDay());
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedBirthDay = String.valueOf(entity.getBirthDay());
+        Instant birthDayInstant = LocalDate.parse(formattedBirthDay,
+                formatter).atStartOfDay(ZoneId.systemDefault()).toInstant();
+
+        entity.setBirthDay(Instant.parse(String.valueOf(birthDayInstant)));
     }
 
+
+    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -118,13 +145,12 @@ public class UserService implements UserDetailsService {
 
         return user;
     }
-
     protected User authenticated() {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Jwt jwtPrincipal = (Jwt) authentication.getPrincipal();
             String username = jwtPrincipal.getClaim("username");
-            return repository.findByEmail(username).get();
+            return repository.findByEmail(username);
         }
         catch (Exception e) {
             throw new UsernameNotFoundException("Invalid user");

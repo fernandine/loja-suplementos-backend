@@ -23,7 +23,7 @@ export class AddressFormComponent {
     bairro: ['', Validators.required],
     localidade: ['', Validators.required],
     uf: ['', Validators.required],
-    userId: ['']
+    userId: [0]
   });
 
   constructor(
@@ -42,7 +42,7 @@ export class AddressFormComponent {
     }
   }
 
-  loadAddress(addressId: string) {
+  loadAddress(addressId: number) {
     this.addressService.getByUserId(addressId)
       .subscribe(
         (addresses: Address[]) => {

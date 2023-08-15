@@ -1,22 +1,13 @@
 package br.com.fernandinesuplementos.loja.config;
 
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
-import java.time.Duration;
-import java.util.List;
-import java.util.UUID;
-
 import br.com.fernandinesuplementos.loja.config.customgrant.CustomPasswordAuthenticationConverter;
 import br.com.fernandinesuplementos.loja.config.customgrant.CustomPasswordAuthenticationProvider;
 import br.com.fernandinesuplementos.loja.config.customgrant.CustomUserAuthorities;
-
+import br.com.fernandinesuplementos.loja.repositories.UserRepository;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -45,13 +36,16 @@ import org.springframework.security.oauth2.server.authorization.settings.Authori
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
-import org.springframework.security.oauth2.server.authorization.token.DelegatingOAuth2TokenGenerator;
-import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
-import org.springframework.security.oauth2.server.authorization.token.JwtGenerator;
-import org.springframework.security.oauth2.server.authorization.token.OAuth2AccessTokenGenerator;
-import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
-import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
+import org.springframework.security.oauth2.server.authorization.token.*;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.time.Duration;
+import java.util.List;
+import java.util.UUID;
 
 @Configuration
 public class AuthorizationServerConfig {
@@ -67,6 +61,9 @@ public class AuthorizationServerConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Bean
     @Order(2)
@@ -109,8 +106,8 @@ public class AuthorizationServerConfig {
         // @formatter:off
         RegisteredClient registeredClient = RegisteredClient
                 .withId(UUID.randomUUID().toString())
-                .clientId("ecommerce")
-                .clientSecret(passwordEncoder().encode("ecommerce123"))
+                .clientId("myclientid")
+                .clientSecret(passwordEncoder().encode("myclientsecret"))
                 .scope("read")
                 .scope("write")
                 .authorizationGrantType(new AuthorizationGrantType("password"))
@@ -155,14 +152,18 @@ public class AuthorizationServerConfig {
     public OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer() {
         return context -> {
             OAuth2ClientAuthenticationToken principal = context.getPrincipal();
-            CustomUserAuthorities user = (CustomUserAuthorities) principal.getDetails();
-            List<String> authorities = user.getAuthorities().stream().map(x -> x.getAuthority()).toList();
+            CustomUserAuthorities customUserAuthorities = (CustomUserAuthorities) principal.getDetails();
+
+            List<String> authorities = customUserAuthorities.getAuthorities().stream().map(x -> x.getAuthority()).toList();
             if (context.getTokenType().getValue().equals("access_token")) {
-                // @formatter:off
+                Long id = userRepository.findIdByEmail(customUserAuthorities.getUsername());
+                String firstname = userRepository.findFirstnameByEmail(customUserAuthorities.getUsername());
+
                 context.getClaims()
+                        .claim("id", id)
+                        .claim("firstname", firstname)
                         .claim("authorities", authorities)
-                        .claim("username", user.getUsername());
-                // @formatter:on
+                        .claim("username", customUserAuthorities.getUsername());
             }
         };
     }

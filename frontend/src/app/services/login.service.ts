@@ -11,7 +11,9 @@ export class LoginService {
   login(): void {
     this.loginSubject.next(true);
   }
-
+  getUserFirstname(): string | null {
+    return localStorage.getItem('userFirstname');
+  }
   getLoginObservable(): Observable<boolean> {
     return this.loginSubject.asObservable();
   }

@@ -1,8 +1,8 @@
 -- -------------------------------------------
 -- Usuários e perfis
 -- -------------------------------------------
-INSERT INTO tb_user (name, cpf, birth_day, phone, email, password) VALUES ('Alex', '12345678', TIMESTAMP WITH TIME ZONE '2022-07-25T13:00:00Z', '31971734658', 'alex@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG');
-INSERT INTO tb_user (name, cpf, birth_day, phone, email, password) VALUES ('Maria', '87654321', TIMESTAMP WITH TIME ZONE '2022-07-25T13:00:00Z', '31978455484', 'maria@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG');
+INSERT INTO tb_user (first_name, last_name, cpf, birth_day, phone, email, password) VALUES ('Alex', 'gray', '12345678', NOW(), '31971734658', 'alex@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG');
+INSERT INTO tb_user (first_name, last_name, cpf, birth_day, phone, email, password) VALUES ('Maria', 'green', '87654321', NOW(), '31978455484', 'maria@gmail.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG');
 
 INSERT INTO tb_role (authority) VALUES ('ROLE_CLIENT');
 INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN');
