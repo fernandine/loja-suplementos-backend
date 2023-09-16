@@ -1,16 +1,17 @@
 export enum Flavors {
+  CHOCOLATE = 'Chocolate',
+  COOKIES_CREAM = 'Cookies',
+  MORANGO = 'Morango',
+  BAUNILHA = 'Baunilha',
+  SEM_SABOR = 'Sem sabor',
+  FRUTAS_VERMELHAS = 'Frutas Vermelhas',
+  BLUE_ICE = 'Blue Ice',
+  LIMAO_YUZU = 'Limão Yuzu',
+  COTTON_CANDY = 'Cotton Candy',
+  LIMAO = 'Limão',
+  CITRUS = 'Citrus',
+  FRUTAS_SILVESTRES = 'Frutas silvestres',
+  ACAI_GUARANA = 'Açaí com Guaraná',
 
-  CHOCOLATE = 'CHOCOLATE',
-  COOKIES_CREAM = 'COOKIES_CREAM',
-  MORANGO = 'MORANGO',
-  BAUNILHA = 'BAUNILHA',
-  SEM_SABOR = 'SEM_SABOR',
-  FRUTAS_VERMELHAS = 'FRUTAS_VERMELHAS',
-  BLUE_ICE = 'BLUE_ICE',
-  LIMAO_YUZU = 'LIMAO_YUZU',
-  COTTON_CANDY = 'COTTON_CANDY',
-  LIMAO = 'LIMAO',
-  CITRUS = 'CITRUS',
- FRUTAS_SILVESTRES = 'FRUTAS_SILVESTRES',
-  ACAI_GUARANA = 'ACAI_GUARANA'
+
 }

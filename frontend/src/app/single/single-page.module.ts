@@ -23,9 +23,6 @@ import { PrimengModule } from '../primeng.module';
     ReplacementComponent,
     ShippingComponent
   ],
-  exports: [
-    CommonModule,
-    PrimengModule
-  ]
+
 })
 export class SinglePageModule { }

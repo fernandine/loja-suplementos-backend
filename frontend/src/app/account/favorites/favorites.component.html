@@ -1,1 +1,37 @@
-<p>favorites works!</p>
+<button pButton class="p-button-rounded p-button-text p-button-danger"></button>
+
+<div class="grid m-3">
+  <div
+    class="col-4 flex justify-content-center align-items-center"
+    *ngFor="let product of likedProducts"
+  >
+    <p-card header="{{ product.name }}" class="shadow-4 w-22rem">
+      <ng-template pTemplate="header">
+        <div class="position-absolute top-0 flex justify-content-end m-3 z-1">
+          <button
+            pButton
+            (click)="onFavoriteProductsChanged(product)"
+            icon="pi pi-times"
+            class="p-button-rounded p-button-text p-button-danger"
+          ></button>
+        </div>
+        <img [src]="product.image" alt="{{ product.name }}" class="w-3 ml-5" />
+      </ng-template>
+
+      <div
+        class="mb-3 overflow-hidden text-overflow-ellipsis"
+        style="width: 200px"
+      >
+        {{ product.description }}
+      </div>
+
+      <h4 class="mb-3">{{ product.unitPrice | currencyFormat }}</h4>
+      <ng-template pTemplate="footer">
+        <p-button
+          label="comprar"
+          [routerLink]="['/products', product.id]"
+        ></p-button>
+      </ng-template>
+    </p-card>
+  </div>
+</div>

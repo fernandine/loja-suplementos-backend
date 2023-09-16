@@ -85,6 +85,7 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+
     // BUSCA OS PRODUTOS MAIS VENDIDOS
     @Transactional(readOnly = true)
     public List<ProductDto> getBestSellers(int limit) {
@@ -117,9 +118,10 @@ public class ProductService {
         return modelMapper.map(entity, ProductDto.class);
     }
     @Transactional(readOnly = true)
-    public List<Product> getProductsByFlavor(Flavors flavors) {
-        return repository.findByFlavor(flavors);
+    public List<Product> getProductsByFlavors(List<Flavors> flavors) {
+        return repository.findByFlavors(flavors);
     }
+
     @Transactional
     public ProductDto update(Long id, ProductDto dto) {
         try {

@@ -1,8 +1,10 @@
 package br.com.fernandinesuplementos.loja.services;
 
+import br.com.fernandinesuplementos.loja.DTOs.AddressDto;
 import br.com.fernandinesuplementos.loja.DTOs.UserDto;
 import br.com.fernandinesuplementos.loja.DTOs.UserInsertDto;
 import br.com.fernandinesuplementos.loja.DTOs.UserUpdateDto;
+import br.com.fernandinesuplementos.loja.entities.Address;
 import br.com.fernandinesuplementos.loja.entities.Role;
 import br.com.fernandinesuplementos.loja.entities.User;
 import br.com.fernandinesuplementos.loja.projections.UserDetailsProjection;
@@ -32,17 +34,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
-
-    private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserRepository repository;
@@ -53,10 +49,8 @@ public class UserService implements UserDetailsService {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Lazy
     @Autowired
     private PasswordEncoder passwordEncoder;
-
 
     @Transactional(readOnly = true)
     public List<UserDto> findAll() {
@@ -68,6 +62,12 @@ public class UserService implements UserDetailsService {
     public UserDto findById(Long id) {
         Optional<User> obj = repository.findById(id);
         User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+        return new UserDto(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public UserDto findMe() {
+        User entity = authenticated();
         return new UserDto(entity);
     }
 
@@ -112,20 +112,28 @@ public class UserService implements UserDetailsService {
 
     private void copyDtoToEntity(UserDto dto, User entity) {
 
+        entity.setId(dto.getId());
         entity.setFirstname(dto.getFirstname());
         entity.setLastname(dto.getLastname());
         entity.setEmail(dto.getEmail());
         entity.setPhone(dto.getPhone());
         entity.setCpf(dto.getCpf());
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String formattedBirthDay = String.valueOf(entity.getBirthDay());
-        Instant birthDayInstant = LocalDate.parse(formattedBirthDay,
-                formatter).atStartOfDay(ZoneId.systemDefault()).toInstant();
+        entity.getAddressList().clear();
 
-        entity.setBirthDay(Instant.parse(String.valueOf(birthDayInstant)));
+        for (AddressDto addressDto : dto.getAddressList()) {
+            Address address = new Address();
+            address.setId(addressDto.getId());
+            address.setLogradouro(addressDto.getLogradouro());
+            address.setBairro(addressDto.getBairro());
+            address.setCep(addressDto.getCep());
+            address.setComplemento(addressDto.getComplemento());
+            address.setLocalidade(addressDto.getLocalidade());
+            address.setUf(addressDto.getUf());
+
+            entity.getAddressList().add(address);
+        }
     }
-
 
     @Transactional(readOnly = true)
     @Override
@@ -156,5 +164,4 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("Invalid user");
         }
     }
-
 }

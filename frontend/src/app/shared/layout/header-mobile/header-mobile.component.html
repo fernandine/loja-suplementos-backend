@@ -1,0 +1,46 @@
+
+<p-sidebar [fullScreen]="true" position="left" [transitionOptions]="'150ms'" [(visible)]="sidebarVisible">
+  <div class="flex justify-content-center align-items-center">
+    <h1 class="text-800">Entre ou Cadastre-se</h1>
+  </div>
+  <div class="flex justify-content-around align-items-center">
+    <button pButton pRipple (click)="onLogin()" label="Entrar" class="w-5 p-button-success"></button>
+    <button pButton pRipple (click)="onRegister()" label="Cadastrar" class="w-5 p-button-success"></button>
+  </div>
+
+  <div class="sidebar-nav">
+    <div *ngIf="categories && categories.length > 0">
+      <ul>
+        <li *ngFor="let category of categories"
+        (click)="handleCategoryClick(category)"
+            class="list-none text-800 font-bold text-2xl line-height-3"
+            [ngClass]="{'category-item': true}">
+          {{ category.name }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</p-sidebar>
+
+<div class="flex flex-column relative flex-auto mb-2">
+  <div class="flex justify-content-between px-5 py-3 relative lg:static">
+    <div class="flex">
+      <a pRipple routerLink="/home" class="cursor-pointer inline-flex py-1 lg:hidden text-700 mr-3" (click)="sidebarVisible = !sidebarVisible">
+        <i class="pi pi-bars text-4xl text-400"></i>
+      </a>
+      <img src="../../../assets/images/logo.png" alt="Image" height="35" class="px-2">
+    </div>
+    <div>
+      <i class="pi pi-user mx-3 text-400" (click)="onAccount()" style="color: rgb(63, 63, 63); font-size: 2rem"></i>
+      <i class="pi pi-shopping-cart text-400" (click)="onCart()" style="color: rgb(63, 63, 63); font-size: 2rem"></i>
+    </div>
+  </div>
+  <div class="flex px-6 p-2">
+    <span class="p-input-icon-left w-full">
+      <i class="pi pi-search text-600"></i>
+      <input type="text" pInputText placeholder="o que você procura? :)" class="text-600 w-full" />
+    </span>
+  </div>
+</div>
+

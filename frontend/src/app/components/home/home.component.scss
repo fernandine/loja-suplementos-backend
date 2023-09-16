@@ -6,6 +6,7 @@
   background-color: #FFD62D;
   overflow: hidden;
   width: 100%;
+  position: relative;
 }
 
 .slide-animation {
@@ -16,7 +17,7 @@
 
 .slide-animation img {
   flex-shrink: 0;
-  width: 50%;
+  width: 100%;
 }
 
 @keyframes slideAnimation {
@@ -26,18 +27,6 @@
   100% {
     transform: translateX(-50%);
   }
-}
-
-.banner-container {
-  position: relative;
-  width: 100%;
-}
-
-.banner-image {
-  max-width: 100%;
-  height: auto;
-  opacity: 1;
-  transition: opacity 0.5s ease-out;
 }
 
 .banner-text {
@@ -57,3 +46,8 @@
   opacity: 1;
 }
 
+@media (max-width: 768px) {
+  .responsive-list {
+    flex-direction: column;
+  }
+}

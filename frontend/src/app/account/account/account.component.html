@@ -6,25 +6,25 @@
                   <li>
                       <ul class="list-none py-6 m-0 overflow-hidden">
                           <li>
-                              <a pRipple routerLink="/account/profile" class="no-underline flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors">
+                              <a pRipple (click)="onProfile()" class="no-underline flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors">
                                   <i class="pi pi-home mr-2"></i>
                                   <span class="font-medium">Dados Pessoais</span>
                               </a>
                           </li>
                           <li>
-                              <a pRipple routerLink="/account/address" class="no-underline flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors">
+                              <a pRipple (click)="onAddress()" class="no-underline flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors">
                                   <i class="pi pi-bookmark mr-2"></i>
                                   <span class="font-medium">Endereços</span>
                               </a>
                           </li>
                          <li>
-                              <a pRipple routerLink="/account/order-history" class="no-underline flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors">
+                              <a pRipple (click)="onOrderHistory()" class="no-underline flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors">
                                   <i class="pi pi-users mr-2"></i>
                                   <span class="font-medium">Pedidos</span>
                               </a>
                           </li>
                           <li>
-                            <a pRipple  routerLink="/account/favorites" class="no-underline flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors">
+                            <a pRipple (click)="onFavorites()" class="no-underline flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors">
                                 <i class="pi pi-users mr-2"></i>
                                 <span class="font-medium">Favoritos</span>
                             </a>

@@ -1,26 +1,22 @@
 <div class="surface-section px-4 py-4 md:px-6 lg:px-8">
-  <ul class="list-none p-0 m-0" *ngFor="let cart of cartItems">
+  <ul class="list-none p-0 mx-8" *ngFor="let cart of cartItems">
       <li class="flex flex-column md:flex-row py-3 border-top-1 border-bottom-1 surface-border md:align-items-center">
-          <img src="{{ cart.imageCart }}" class="w-12rem flex-shrink-0 mx-auto md:mx-0" />
+          <img src="{{ cart.imageCart }}" class="w-5rem flex-shrink-0 mx-auto md:mx-0" />
           <div class="flex-auto py-5 md:pl-5">
               <div class="flex flex-wrap align-items-start sm:align-items-center sm:flex-row sm:justify-content-between surface-border pb-2">
                   <div class="w-full sm:w-6 flex flex-column">
-                      <span class="text-900 text-xl font-medium mb-2">{{ cart.name }}</span>
+                      <span class="text-900 font-medium mb-2">{{ cart.name }}</span>
                   </div>
                   <div class="w-full sm:w-6 flex align-items-start justify-content-between mt-2 sm:mt-0" >
-                      <div>
                         <td>
-                          <button pButton type="button" buttonLayout="horizontal" class="p-button-danger" decrementButtonClass="p-button-danger" icon="pi pi-minus" (click)="decrementQuantity(cart)" [disabled]="cart.quantity <= 1"></button>
-                          <p-inputNumber inputId="integeronly" [(ngModel)]="cart.quantity">
-                          </p-inputNumber>
-                          <button pButton type="button" buttonLayout="horizontal" class="p-button-success" incrementButtonClass="p-button-success" icon="pi pi-plus" (click)="incrementQuantity(cart)"></button>
+                          <p-button type="button" buttonLayout="horizontal" styleClass="p-button-sm p-button-danger" decrementButtonClass="p-button-danger" icon="pi pi-minus" (click)="decrementQuantity(cart)" [disabled]="cart.quantity <= 1"></p-button>
+                          <p-inputNumber [(ngModel)]="cart.quantity" inputId="integeronly" class="p-inputtext-sm text-800 px-2"></p-inputNumber>
+                          <p-button type="button" buttonLayout="horizontal" styleClass="p-button-sm p-button-success" incrementButtonClass="p-button-success" icon="pi pi-plus" (click)="incrementQuantity(cart)"></p-button>
                         </td>
-
-                      </div>
                       <div class="flex flex-column sm:align-items-end">
-                        <span class="text-900 text-2xl font-medium mb-2 sm:mb-3">{{ cart.price | currency: "USD"}}</span>
+                        <span class="text-900 text-2xl font-normal mb-2 sm:mb-3">{{ cart.price | currencyFormat }}</span>
 
-                        <a class="cursor-pointer text-pink-500 font-medium hover:text-pink-600 transition-colors transition-duration-300" tabindex="0" (click)="remove(cart)"  >Remove</a>
+                        <a class="cursor-pointer text-pink-500 font-normal hover:text-pink-600 transition-colors transition-duration-300" tabindex="0" (click)="remove(cart)"  >Remove</a>
                         </div>
                   </div>
               </div>
@@ -33,7 +29,7 @@
       <ul class="list-none py-0 pr-0 pl-0 md:pl-5 mt-6 mx-0 mb-0 flex-auto">
           <li class="flex justify-content-between mb-4">
               <span class="text-xl text-900">Subtotal</span>
-              <span class="text-xl text-900">{{ getSubtotal() | currency }}</span>
+              <span class="text-xl text-900">{{ getSubtotal() | currencyFormat }}</span>
           </li>
           <li class="flex justify-content-between mb-4">
               <span class="text-xl text-900">Frete</span>
@@ -42,12 +38,12 @@
 
           <li class="flex justify-content-between border-top-1 surface-border mb-4 pt-4">
               <span class="text-xl text-900 font-bold text-3xl">Total</span>
-              <span class="text-xl text-900 font-bold text-3xl text-red-600">{{ totalPrice | currency: "USD"}}</span>
+              <span class="text-xl text-900 font-bold text-3xl text-red-600">{{ totalPrice | currencyFormat }}</span>
           </li>
 
       </ul>
 </div>
 <div class="flex justify-content-end py-4">
-  <p-button label="Avançar" routerLink="/checkout/profile-form"></p-button>
+  <p-button label="Avançar" routerLink="/order"></p-button>
   </div>
 </div>

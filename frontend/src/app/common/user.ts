@@ -1,13 +1,14 @@
 import { Role } from "./role";
+import { Address } from './address';
 
 export interface User {
-  id: number;
+  id: string;
   email: string;
   firstname: string;
   lastname: string;
   password: string;
   cpf: string;
   phone: string;
-  birthDay: string;
   roles: Role[];
+  addressList: Address[];
 }

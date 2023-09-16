@@ -1,0 +1,61 @@
+<div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
+  <div class="grid -mr-3 -ml-3">
+    <div class="col-12 lg:col-8 p-4">
+      <div class="surface-card grid formgrid p-fluid border-round shadow-2 p-4">
+        <div class="col-12 mb-4 flex flex-column lg:flex-row align-items-center justify-content-between">
+          <div class="text-900 font-medium text-xl">Informações de contato</div>
+          <div class="mt-3 lg:mt-0">
+            <span class="text-600 mr-2">Ambiente 100% seguro</span>
+            <i class="text-600 pi pi-lock"></i>
+          </div>
+        </div>
+
+        <app-contact-form></app-contact-form>
+
+      </div>
+    </div>
+
+    <div class="col-12 lg:col-4 p-4">
+      <div class="surface-card border-round shadow-2 p-5">
+        <div class="flex justify-content-between align-items-center border-bottom-1 pb-3 surface-border">
+          <span class="text-900 font-medium text-lg lg:text-xl"><i class="pi pi-shopping-cart text-xl mr-2"></i>Seu
+            pedido</span>
+          <a tabindex="0" routerLink="/cart-details" class="text-600 font-medium cursor-pointer hover:text-primary">Alterar pedido</a>
+        </div>
+
+        <div *ngFor="let item of cartItems"
+          class="flex flex-column lg:flex-row flex-wrap lg:align-items-center py-3 my-3 border-bottom-1 surface-border">
+          <img src="{{ item.imageCart }}" class="w-4rem h-4rem flex-shrink-0 mb-3" />
+          <div class="flex-auto lg:ml-3">
+            <div class="flex align-items-center justify-content-between mb-3">
+              <span class="text-900 font-medium">{{ item.name }}</span>
+              <span class="text-900 font-bold mx-3">{{ item.price | currencyFormat }}</span>
+            </div>
+            <div class="text-600 text-sm mb-3"></div>
+            <div class="flex flex-auto justify-content-between align-items-center">
+              <p-button type="button" buttonLayout="horizontal" styleClass="p-button-sm p-button-danger" decrementButtonClass="p-button-danger" icon="pi pi-minus" (click)="decrementQuantity(item)" [disabled]="item.quantity <= 1"></p-button>
+              <p-inputNumber [(ngModel)]="item.quantity" inputId="integeronly" class="p-inputtext-sm text-800 px-2"></p-inputNumber>
+              <p-button type="button" buttonLayout="horizontal" styleClass="p-button-sm p-button-success" incrementButtonClass="p-button-success" icon="pi pi-plus" (click)="incrementQuantity(item)"></p-button>
+            </div>
+          </div>
+        </div>
+
+        <div class="py-2 mt-3 border-bottom-1 surface-border">
+          <div class="flex justify-content-between align-items-center mb-3">
+            <span class="text-900">Subtotal</span>
+            <span class="text-900">{{ getSubtotal() | currencyFormat }}</span>
+          </div>
+          <div class="flex justify-content-between align-items-center mb-3">
+            <span class="text-900">Shipping</span>
+            <span class="text-900">Free</span>
+          </div>
+          <div class="flex justify-content-between align-items-center mb-3">
+            <span class="text-900">Total</span>
+            <span class="text-900 font-bold">{{ totalPrice | currencyFormat }}</span>
+          </div>
+        </div>
+        <button pButton class="p-button-primary" (click)="onSubmit()" label="FINALIZAR PEDIDO" class="w-full mt-3"></button>
+      </div>
+    </div>
+  </div>
+</div>

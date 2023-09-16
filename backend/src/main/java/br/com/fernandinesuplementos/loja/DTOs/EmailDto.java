@@ -1,24 +1,23 @@
 package br.com.fernandinesuplementos.loja.DTOs;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
-import java.io.Serializable;
+public class EmailDto {
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class EmailDto implements Serializable {
+    @NotBlank(message = "Campo obrigatório")
+    @Email(message = "Email inválido")
+    private String email;
 
-    private String fromEmail;
-    private String fromName;
-    private String replyTo;
-    private String to;
-    private String subject;
-    private String body;
-    private String contentType;
+    public EmailDto() {
+    }
 
+    public EmailDto(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }

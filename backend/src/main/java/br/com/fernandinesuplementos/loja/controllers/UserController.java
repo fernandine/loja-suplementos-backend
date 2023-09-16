@@ -3,10 +3,12 @@ package br.com.fernandinesuplementos.loja.controllers;
 import br.com.fernandinesuplementos.loja.DTOs.UserDto;
 import br.com.fernandinesuplementos.loja.DTOs.UserInsertDto;
 import br.com.fernandinesuplementos.loja.DTOs.UserUpdateDto;
+import br.com.fernandinesuplementos.loja.services.AuthService;
 import br.com.fernandinesuplementos.loja.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,9 +28,17 @@ public class UserController {
 		return ResponseEntity.ok().body(list);
 	}
 
+	//@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserDto> findById(@PathVariable Long id) {
 		UserDto dto = service.findById(id);
+		return ResponseEntity.ok().body(dto);
+	}
+
+	//@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
+	@GetMapping(value = "/me")
+	public ResponseEntity<UserDto> findMe() {
+		UserDto dto = service.findMe();
 		return ResponseEntity.ok().body(dto);
 	}
 	

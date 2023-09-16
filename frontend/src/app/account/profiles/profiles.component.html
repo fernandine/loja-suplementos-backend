@@ -1,1 +1,38 @@
-<p>profiles works!</p>
+<form [formGroup]="userForm" class="p-fluid px-4 py-3">
+  <div class="formgrid grid px-6">
+    <div class="field col-12">
+    <label for="email" class="text-700">Email</label>
+    <input id="email" type="email" pInputText formControlName="email">
+  </div>
+
+  <div class="field col-6">
+    <label for="firstname" class="text-700">Nome</label>
+    <input id="firstname" type="text" pInputText formControlName="firstname">
+  </div>
+
+  <div class="field col-6">
+    <label for="lastname" class="text-700">Sobrenome</label>
+    <input id="lastname" type="text" pInputText formControlName="lastname">
+  </div>
+
+  <div class="field col-6">
+    <label for="cpf" class="text-700">CPF</label>
+    <input id="cpf" type="text" pInputText formControlName="cpf">
+  </div>
+
+  <div class="field col-6">
+    <label for="phone" class="text-700">Telefone</label>
+    <input id="phone" type="text" pInputText formControlName="phone">
+  </div>
+<!--
+  <div class="field col-4">
+    <label for="birthDay" class="text-700">Data de Nascimento</label>
+    <p-calendar id="birthDay" type="date" pCalendar dateFormat="dd/mm/yy" [showIcon]="true" formControlName="birthDay"></p-calendar>
+  </div>
+-->
+  <div class="flex inline-flex gap-3">
+    <p-button label="Atualizar" (click)="updateUser()"></p-button>
+    <p-button label="Cancelar" (click)="cancelEdit()"></p-button>
+  </div>
+</div>
+</form>

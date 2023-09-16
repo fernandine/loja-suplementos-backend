@@ -20,6 +20,7 @@ export class ProductDetailComponent {
   @Input() productDetail!: ProductDetails;
   @Output() favoriteProductsChanged = new EventEmitter<Product>();
 
+  cartItem!: CartItem
   reviews: Review[] = [];
   quantity = 1;
   rating!: number;
@@ -52,8 +53,14 @@ export class ProductDetailComponent {
   }
 
   addToCart() {
-    const theCartItem = new CartItem(this.product);
-    this.cartService.addToCart(theCartItem);
+    this.cartItem = {
+      id: this.product.id,
+      name: this.product.name,
+      imageCart: this.product.image,
+      price: this.product.unitPrice.toNumber(),
+      quantity: 1,
+    };
+    this.cartService.addToCart(this.cartItem);
     this.quantity = 1;
     this.router.navigate(["/cart-details"])
   }

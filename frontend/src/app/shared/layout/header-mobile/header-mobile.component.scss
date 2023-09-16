@@ -1,0 +1,29 @@
+.sidebar {
+  margin-top: 5px;
+}
+.sidebar-nav {
+  margin-top: 30px;
+}
+/* Estilo para o título das categorias */
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Estilo para a lista de categorias */
+.sidebar ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+/* Estilo para os itens da lista de categorias */
+.sidebar li {
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.category-item {
+  border-bottom: 0.5px solid rgb(189, 187, 187);
+  transition: border-bottom 0.3s ease;
+}

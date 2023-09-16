@@ -1,34 +1,55 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../common/user';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private userUrl = environment.shopUrl + '/users';
+  private apiUrl = environment.shopUrl + '/users';
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
+  private storage = inject(StorageService);
 
   getUser(): Observable<User[]> {
-    return this.http.get<User[]>(this.userUrl);
+    return this.http.get<User[]>(this.apiUrl);
   }
 
-  getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.userUrl}/${id}`);
+  getAuthenticatedUser(): Observable<User> {
+    const token = this.getTokenFromLocalStorage();
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+
+      return this.http.get<User>(`${this.apiUrl}/me`, { headers });
+    } else {
+      return new Observable<User>();
+    }
+  }
+
+
+  private getTokenFromLocalStorage(): string | null {
+    const currentUser = this.storage.getItem('currentUser');
+    return currentUser ? currentUser.token : null;
+  }
+
+  getUserById(id: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${id}`);
   }
 
   createUser(user: User): Observable<any> {
-    return this.http.post(`${this.userUrl}`, user);
+    return this.http.post(`${this.apiUrl}`, user);
   }
 
-  updateUser(id: number, value: any): Observable<any> {
-    return this.http.put(`${this.userUrl}/${id}`, value);
+  updateUser(id: string, value: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, value);
   }
 
-  deleteUser(id: number): Observable<any> {
-    return this.http.delete(`${this.userUrl}/${id}`);
+  deleteUser(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

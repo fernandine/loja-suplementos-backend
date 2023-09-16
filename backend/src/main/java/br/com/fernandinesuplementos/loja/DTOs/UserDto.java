@@ -3,6 +3,8 @@ package br.com.fernandinesuplementos.loja.DTOs;
 import br.com.fernandinesuplementos.loja.entities.Address;
 import br.com.fernandinesuplementos.loja.entities.User;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Negative;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
@@ -13,12 +15,13 @@ import java.util.List;
 public class UserDto implements Serializable {
 
     private Long id;
+    @NotBlank(message = "Campo obrigatório")
     private String firstname;
     private String lastname;
     private String cpf;
     private String phone;
-    private Instant birthDay;
-    @Email
+//    private Instant birthDay;
+    @Email(message = "Favor entrar com email válido")
     private String email;
     private List<String> roles = new ArrayList<>();
     private List<AddressDto> addressList = new ArrayList<>();
@@ -27,13 +30,12 @@ public class UserDto implements Serializable {
     }
 
     public UserDto(Long id, String firstname, String lastname, String cpf, String phone,
-                   Instant birthDay, String email) {
+                    String email) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.cpf = cpf;
         this.phone = phone;
-        this.birthDay = birthDay;
         this.email = email;
     }
 
@@ -44,7 +46,6 @@ public class UserDto implements Serializable {
         email = entity.getEmail();
         phone = entity.getPhone();
         cpf = entity.getCpf();
-        birthDay = entity.getBirthDay();
 
         for (Address address : entity.getAddressList()) {
             AddressDto addressDto = new AddressDto(address);
@@ -94,14 +95,6 @@ public class UserDto implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public Instant getBirthDay() {
-        return birthDay;
-    }
-
-    public void setBirthDay(Instant birthDay) {
-        this.birthDay = birthDay;
     }
 
     public String getEmail() {

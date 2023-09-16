@@ -28,7 +28,7 @@ public class ProductController {
     }
 
     // URL = /products/find?notFavorite=
-    @GetMapping("/findByFavorite?notFavorite=")
+    @GetMapping("/find")
     public ResponseEntity<List<ProductDto>> findByFavorite(
             @RequestParam(value = "notFavorite", defaultValue = "false") boolean favorite
             ) {
@@ -66,8 +66,7 @@ public class ProductController {
         return ResponseEntity.ok().body(service.findByName(name));
     }
 
-
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") 
     public ResponseEntity<ProductDto> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
     }
@@ -85,11 +84,12 @@ public class ProductController {
         List<ProductDto> mostRecentProducts = service.findMostRecentProductsByCreationDate(limit);
         return ResponseEntity.ok(mostRecentProducts);
     }
-    @GetMapping("/flavors/{flavors}")
-    public ResponseEntity<List<Product>> getProductsByFlavor(@PathVariable Flavors flavors) {
-        List<Product> products = service.getProductsByFlavor(flavors);
+    @GetMapping("/flavors")
+    public ResponseEntity<List<Product>> getProductsByFlavor(@RequestParam List<Flavors> flavors) {
+        List<Product> products = service.getProductsByFlavors(flavors);
         return ResponseEntity.ok(products);
     }
+
     @PostMapping
     public ResponseEntity<ProductDto> insert(@Valid @RequestBody ProductDto dto) {
         dto = service.insert(dto);

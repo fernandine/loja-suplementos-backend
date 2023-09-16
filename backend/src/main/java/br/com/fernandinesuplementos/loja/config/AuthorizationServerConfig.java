@@ -3,7 +3,6 @@ package br.com.fernandinesuplementos.loja.config;
 import br.com.fernandinesuplementos.loja.config.customgrant.CustomPasswordAuthenticationConverter;
 import br.com.fernandinesuplementos.loja.config.customgrant.CustomPasswordAuthenticationProvider;
 import br.com.fernandinesuplementos.loja.config.customgrant.CustomUserAuthorities;
-import br.com.fernandinesuplementos.loja.repositories.UserRepository;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
@@ -16,7 +15,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2Token;
@@ -60,10 +58,12 @@ public class AuthorizationServerConfig {
     private Integer jwtDurationSeconds;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserDetailsService userDetailsService;
+
+
 
     @Bean
     @Order(2)
@@ -74,13 +74,11 @@ public class AuthorizationServerConfig {
         // @formatter:off
         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
                 .tokenEndpoint(tokenEndpoint -> tokenEndpoint
+                        //.accessTokenResponseHandler(new CustomAccessTokenResponseHandler(userRepository))
                         .accessTokenRequestConverter(new CustomPasswordAuthenticationConverter())
-                        .authenticationProvider(
-                                new CustomPasswordAuthenticationProvider(authorizationService(),
-                                        tokenGenerator(), userDetailsService, passwordEncoder())));
+                        .authenticationProvider(new CustomPasswordAuthenticationProvider(authorizationService(), tokenGenerator(), userDetailsService, passwordEncoder)));
 
-        http.oauth2ResourceServer(oauth2ResourceServer ->
-                oauth2ResourceServer.jwt(Customizer.withDefaults()));
+        http.oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(Customizer.withDefaults()));
         // @formatter:on
 
         return http.build();
@@ -97,17 +95,12 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
     public RegisteredClientRepository registeredClientRepository() {
         // @formatter:off
         RegisteredClient registeredClient = RegisteredClient
                 .withId(UUID.randomUUID().toString())
-                .clientId("myclientid")
-                .clientSecret(passwordEncoder().encode("myclientsecret"))
+                .clientId(clientId)
+                .clientSecret(passwordEncoder.encode(clientSecret))
                 .scope("read")
                 .scope("write")
                 .authorizationGrantType(new AuthorizationGrantType("password"))
@@ -152,18 +145,14 @@ public class AuthorizationServerConfig {
     public OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer() {
         return context -> {
             OAuth2ClientAuthenticationToken principal = context.getPrincipal();
-            CustomUserAuthorities customUserAuthorities = (CustomUserAuthorities) principal.getDetails();
-
-            List<String> authorities = customUserAuthorities.getAuthorities().stream().map(x -> x.getAuthority()).toList();
+            CustomUserAuthorities user = (CustomUserAuthorities) principal.getDetails();
+            List<String> authorities = user.getAuthorities().stream().map(x -> x.getAuthority()).toList();
             if (context.getTokenType().getValue().equals("access_token")) {
-                Long id = userRepository.findIdByEmail(customUserAuthorities.getUsername());
-                String firstname = userRepository.findFirstnameByEmail(customUserAuthorities.getUsername());
-
+                // @formatter:off
                 context.getClaims()
-                        .claim("id", id)
-                        .claim("firstname", firstname)
                         .claim("authorities", authorities)
-                        .claim("username", customUserAuthorities.getUsername());
+                        .claim("username", user.getUsername());
+                // @formatter:on
             }
         };
     }

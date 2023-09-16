@@ -23,9 +23,9 @@ public class User implements UserDetails, Serializable {
     private String lastname;
     private String cpf;
     private String phone;
-    @Column(name = "birth_day",
-            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant birthDay;
+//    @Column(name = "birth_day",
+//            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+//    private Instant birthDay;
     @Column(unique = true)
     private String email;
     @JsonIgnore
@@ -49,13 +49,12 @@ public class User implements UserDetails, Serializable {
     }
 
     public User(Long id, String firstname, String lastname, String cpf, String phone,
-                Instant birthDay, String email, String password) {
+               String email, String password) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.cpf = cpf;
         this.phone = phone;
-        this.birthDay = birthDay;
         this.email = email;
         this.password = password;
     }
@@ -109,14 +108,6 @@ public class User implements UserDetails, Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public Instant getBirthDay() {
-        return birthDay;
-    }
-
-    public void setBirthDay(Instant birthDay) {
-        this.birthDay = birthDay;
     }
 
     public String getEmail() {

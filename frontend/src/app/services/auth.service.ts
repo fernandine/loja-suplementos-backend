@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
@@ -10,10 +10,9 @@ import { StorageService } from './storage.service';
 export class AuthService {
 
   private apiUrl = environment.shopUrl + '/oauth2/token';
-  constructor(
-    private http: HttpClient,
-    private storageService: StorageService
-  ) { }
+
+  private http = inject(HttpClient);
+  private storageService = inject(StorageService);
 
   login(username: string, password: string): Observable<boolean> {
     const headers = new HttpHeaders({
@@ -28,11 +27,9 @@ export class AuthService {
 
     return this.http.post<any>(this.apiUrl, body.toString(), { headers: headers }).pipe(
       map(response => {
-        const id = response.id;
-        const firstname = response.firstname;
         const token = response.access_token;
         if (token) {
-          const currentUser = { id, firstname, username, token };
+          const currentUser = { username, token };
           this.storageService.setItem('currentUser', currentUser);
           return true;
         } else {
@@ -40,38 +37,31 @@ export class AuthService {
         }
       })
     );
-
   }
 
   getCurrentUser(): {
     username: string;
-    firstname: string;
     token: string;
-    id: number
   } | null {
     const currentUser = this.storageService.getItem('currentUser');
     console.log(currentUser);
-
     if (currentUser && currentUser.token) {
       return {
         username: currentUser.username || '',
-        firstname: currentUser.firstname || '',
         token: currentUser.token || '',
-        id: currentUser.id || 0,
-
       };
     } else {
       return null;
     }
   }
 
-  logout(): void {
-    this.storageService.removeItem('currentUser');
-  }
-
   isAuthenticated(): boolean {
     const currentUser = this.storageService.getItem('currentUser');
     return !!currentUser && !!currentUser.token;
+  }
+
+  logout(): void {
+    this.storageService.removeItem('currentUser');
   }
 
 }

@@ -1,5 +1,7 @@
 package br.com.fernandinesuplementos.loja.config;
 
+import br.com.fernandinesuplementos.loja.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -30,6 +32,9 @@ public class ResourceServerConfig {
     @Value("${cors.origins}")
     private String corsOrigins;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Bean
     @Profile("test")
     @Order(1)
@@ -45,7 +50,8 @@ public class ResourceServerConfig {
     public SecurityFilterChain rsSecurityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf(csrf -> csrf.disable());
-        http.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll());
+        http.authorizeHttpRequests(authorize -> authorize.anyRequest()
+                .permitAll());
         //http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated());
         http.oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(
                 Customizer.withDefaults()));

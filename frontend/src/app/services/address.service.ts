@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Address } from '../common/address';
@@ -11,7 +11,7 @@ export class AddressService {
 
   private apiUrl = environment.shopUrl + '/adresses';
 
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
 
   getAddresses(): Observable<Address[]> {
     return this.http.get<Address[]>(this.apiUrl);

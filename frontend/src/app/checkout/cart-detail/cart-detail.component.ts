@@ -15,7 +15,6 @@ import { DiscountService } from 'src/app/services/discount.service';
 })
 export class CartDetailComponent {
 
-  quantityOptions: SelectItem[] = [{label: '1', value: 1 }, {label: '2', value: 2 }, {label: '3', value: 3}, {label: '4', value: 4}];
   cartItems: CartItem[] = [];
   totalPrice: number = 0;
   totalQuantity: number = 0;

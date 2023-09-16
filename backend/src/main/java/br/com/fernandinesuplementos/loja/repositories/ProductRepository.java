@@ -40,8 +40,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p JOIN p.category c WHERE c.name = :name")
     List<Product> findByNameCategory(@Param("name") String name);
 
-    @Query("SELECT p FROM Product p JOIN p.details d WHERE d.flavors = :flavors")
-    List<Product> findByFlavor(@Param("flavors") Flavors flavors);
+    @Query("SELECT p FROM Product p JOIN p.details d WHERE d.flavors IN :flavors")
+    List<Product> findByFlavors(@Param("flavors") List<Flavors> flavors);
+
 
     List<Product> findByUnitPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ProductDetails } from '../common/product-details';
@@ -9,16 +9,25 @@ import { Observable } from 'rxjs';
 })
 export class ProductDetailService {
 
-  private baseUrl =  environment.shopUrl + '/product-details';
+  private apiUrl =  environment.shopUrl + '/product-details';
 
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
 
-  getAvailableFlavors(): Observable<string[]> {
-    const url = `${this.baseUrl}/flavors`;
-    return this.http.get<string[]>(url);
-  }
-  getProductsByFlavor(flavors: string[]): Observable<ProductDetails[]> {
-    const url = `${this.baseUrl}/flavors/${flavors}`;
+  getProduct(): Observable<ProductDetails[]> {
+    const url = `${this.apiUrl}`;
     return this.http.get<ProductDetails[]>(url);
+  }
+  getProductById(id: number): Observable<ProductDetails> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<ProductDetails>(url);
+  }
+  createProduct(product: ProductDetails): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, product);
+  }
+  updateProduct(id: number, value: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, value);
+  }
+  deleteProduct(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

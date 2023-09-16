@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ThemeService } from './services/theme.service';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
@@ -10,10 +9,11 @@ import { Router, NavigationEnd } from '@angular/router';
 export class AppComponent {
 
   title = 'frontend';
+
   currentRoute!: string;
 
   constructor(
-    private themeService: ThemeService,
+    //private themeService: ThemeService,
     private router: Router
     ) {}
 
@@ -24,8 +24,8 @@ export class AppComponent {
         }
       });
     }
-
+/*
   changeTheme(theme: string) {
     this.themeService.switchTheme(theme);
-  }
+  }*/
 }

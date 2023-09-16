@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Address } from 'src/app/common/address';
+import { User } from 'src/app/common/user';
 import { AddressService } from 'src/app/services/address.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-address-form',
@@ -14,6 +16,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class AddressFormComponent {
 
   address!: Address;
+  addresses: Address[] = [];
 
   addressForm = this.formBuilder.group({
     id: [''],
@@ -23,45 +26,35 @@ export class AddressFormComponent {
     bairro: ['', Validators.required],
     localidade: ['', Validators.required],
     uf: ['', Validators.required],
-    userId: [0]
+    userId: ['']
   });
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
     private addressService: AddressService,
     private authService: AuthService,
-    private route: ActivatedRoute,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private userService: UserService
     ) {
   }
 
   ngOnInit(): void {
-    const addressId = this.route.snapshot.params['id'];
-    if (addressId) {
-      this.loadAddress(addressId);
-    }
+      this.loadCurrentUser();
   }
 
-  loadAddress(addressId: number) {
-    this.addressService.getByUserId(addressId)
-      .subscribe(
-        (addresses: Address[]) => {
-          const address = addresses[0];
-          this.addressForm.setValue({
-            id: address?.id ?? '',
-            cep: address.cep,
-            logradouro: address.logradouro,
-            complemento: address?.complemento ?? '',
-            bairro: address.bairro,
-            localidade: address.localidade,
-            uf: address.uf,
-            userId: address.userId
-          });
-        },
-        error => {
-          console.error('Erro ao buscar endereço pelo ID:', error);
-        }
-      );
+  loadCurrentUser() {
+    this.userService.getAuthenticatedUser().subscribe(user => {
+        this.addressForm.patchValue({
+          id: this.address.id,
+          cep: this.address.cep,
+          logradouro: this.address.logradouro,
+          complemento: this.address.complemento,
+          bairro: this.address.bairro,
+          localidade: this.address.localidade,
+          uf: this.address.uf,
+          userId: user.id
+        });
+      })
   }
 
   onCepBlur() {
@@ -94,6 +87,7 @@ export class AddressFormComponent {
       }
     }
   }
+
   isNewAddress(): boolean {
     return this.addressForm.get('id')?.value === '';
   }
@@ -102,11 +96,10 @@ export class AddressFormComponent {
     this.address = <Address>this.addressForm.value;
     const currentUser = this.authService.getCurrentUser();
     if (currentUser) {
-      this.address.userId = currentUser.id;
       this.addressService.createAddress(this.address)
         .subscribe(
           _result => {
-            console.log("Endereço recebido:", this.address);
+            this.loadCurrentUser();
             this.onSuccess('Endereço criado com sucesso!');
             this.addressForm.reset();
             location.reload();
@@ -116,7 +109,20 @@ export class AddressFormComponent {
     }
   }
 
+  loadAddresses() {
+    this.userService.getAuthenticatedUser().subscribe(
+      (user: User) => {
+        this.addresses = user.addressList;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
   updateAddress() {
+    // Aplicar mudanças do formulário diretamente ao this.address
+    this.address = { ...this.address, ...this.addressForm.value };
+
     this.addressService.updateAddress(this.address.id, this.address)
       .subscribe(
         _result => {
@@ -125,6 +131,8 @@ export class AddressFormComponent {
         _error => this.onError('Erro ao atualizar endereço.')
       );
   }
+
+
 
   onSuccess(message: string) {
     this.notificationService.success(message);

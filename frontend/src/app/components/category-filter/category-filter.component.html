@@ -1,11 +1,4 @@
-<div class="px-4 md:px-6 py-2 lg:px-8">
-
-  <div style="position: relative; display: inline-block;">
-    <img alt="Card" src="../../../assets/images/banner_category.jpg" class="w-8 border-round" style="display: block; margin: 0 auto;" />
-    <div class="font-bold text-2xl mb-4 text-0 text-center pz-5 z-1" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">{{ selectedCategory.name }}</div>
-  </div>
-
-
+<div class="surface-ground px-4 md:px-6 py-2 lg:px-6">
   <div class="flex flex-wrap lg:flex-nowrap">
     <div class="col-fixed lg:col-2 mr-4 flex p-0 flex-column w-full lg:w-3">
 
@@ -32,8 +25,14 @@
 
             <div class="flex flex-column w-full justify-content-between">
               <div class="ml-3 field-checkbox" *ngFor="let flavor of flavors">
-                <input type="checkbox" [id]="'flavorFilter' + flavor.value" [(ngModel)]="flavor.selected" (change)="applyFilters()">
-                <label [for]="'flavorFilter' + flavor.value">{{ flavor.value }}</label>
+                <p-checkbox
+                [binary]="true"
+                [id]="'flavorFilter' + flavor.value"
+                [(ngModel)]="flavor.selected"
+                (ngModelChange)="applyFilters()"
+              >
+              </p-checkbox>
+                 <label [for]="'flavorFilter' + flavor.value">{{ flavor.value }}</label>
               </div>
             </div>
 
@@ -43,19 +42,6 @@
             </a>
           </div>
         </p-accordionTab>
-
-        <p-accordionTab [selected]="true" header="Price Range">
-          <div class="transition-all transition-duration-400 transition-ease-in-out">
-            <p-slider [(ngModel)]="rangeValues" [range]="true" styleClass="mt-3 mx-auto" [style]="{'max-width':'93%'}"></p-slider>
-            <div class="flex my-4">
-              <p-inputNumber [(ngModel)]="minPrice" inputStyleClass="w-full mr-3"></p-inputNumber>
-              <p-inputNumber [(ngModel)]="maxPrice" inputStyleClass="w-full"></p-inputNumber>
-            </div>
-          </div>
-        </p-accordionTab>
-
-
-
       </p-accordion>
     </div>
 

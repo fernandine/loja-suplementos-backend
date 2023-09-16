@@ -1,25 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 //@import "primeng/resources/themes/saga-green/theme.css";
-@import 'primeng/resources/themes/bootstrap4-light-blue/theme.css';
+@import 'primeng/resources/themes/lara-light-indigo/theme.css';
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
 @import "primeflex/primeflex.scss";
 @import "quill/dist/quill.snow.css";
-@import "~@fortawesome/fontawesome-free/css/all.min.css";
-
-@import url('https://fonts.googleapis.com/css2?family=Urbanist&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
-// Resto do seu código styles.scss
+@import "@fortawesome/fontawesome-free/css/all.min.css";
 
 * {
   margin: 0;
+  max-width: 100%;
 }
 
 body {
   font-family: 'Roboto', 'Urbanist', Helvetica, sans-serif;
-  color: rgb(255, 255, 255);
-  background-color: rgb(24, 24, 24);
-}
+  font-size: 16px;
+  color: #ebebeb; /* Cor do texto */
+  background: linear-gradient(to bottom, #000000, #292929); /* Gradiente de fundo */
+  background-attachment: fixed; /* O fundo permanece fixo enquanto a página rola */
+  background-repeat: no-repeat;
+  }
+
+
+/* Outras regras de estilo para elementos do seu conteúdo podem ser adicionadas aqui */
+
 

@@ -1,0 +1,123 @@
+<ng-container *ngIf="!isDesktop">
+  <app-header-mobile [isMobile]="true"></app-header-mobile>
+</ng-container>
+
+<ng-container *ngIf="isDesktop">
+
+<!--TOPO 1-->
+<div class="text-gray-900 py-3 flex justify-content-between lg:justify-content-center align-items-center flex-wrap"
+style="background-color: #FFD62D;">
+  <div class="font-bold mr-8">🔥 Notícia Quentíssima!</div>
+  <div class="align-items-center hidden lg:flex">
+      <span class="line-height-3">Ganhe 10% OFF na 1ª compra com o cupom QUERO10. Cadastre-se agora!</span>
+  </div>
+  <a class="flex align-items-center ml-2 mr-8">
+      <a class="text-white" href="#"><span class="underline font-bold">Saiba Mais</span></a>
+  </a>
+  <a pRipple class="flex align-items-center no-underline justify-content-center border-circle text-gray-50 hover:bg-bluegray-700 cursor-pointer transition-colors transition-duration-150" style="width:2rem; height: 2rem">
+      <i class="pi pi-times"></i>
+  </a>
+</div>
+
+<!--TOPO 2-->
+  <div class=" bg-gray-700 align-items-center justify-content-center lg:flex lg:static w-full lg:px-0">
+    <ul class="list-none flex lg:align-items-center text-900 select-none flex-column lg:flex-row cursor-pointer">
+      <li>
+          <a pRipple routerLink="/account/order-history" class="no-underline flex px-0 lg:px-5 py-3 align-items-center text-0 font-medium transition-colors transition-duration-150">
+            <i class="pi pi-shopping-bag mr-2"></i>
+            <span>Meus Pedidos</span>
+          </a>
+      </li>
+      <li>
+          <a pRipple routerLink="/account/favorites" class="no-underline flex px-0 lg:px-5 py-3 text-0 font-medium transition-colors transition-duration-150">
+            <i class="pi pi-heart mr-2"></i>
+            <span>Favoritos</span>
+          </a>
+      </li>
+      <li>
+          <a pRipple routerLink="/contact" class="no-underline flex px-0 lg:px-5 py-3 text-0 font-medium transition-colors transition-duration-150">
+            <i class="pi pi-phone mr-2"></i>
+            <span>Atendimento</span>
+          </a>
+      </li>
+      <li>
+        <a pRipple *ngIf="(isLoggedIn)" routerLink="/admin" class="text-yellow-500 no-underline flex px-0 lg:px-5 py-3 text-0 font-medium transition-colors transition-duration-150">
+          <i class="pi pi-cog mr-2"></i>
+          <span>Área do Administrador</span>
+        </a>
+    </li>
+  </ul>
+  </div>
+
+<!--TOPO 3-->
+<nav class="py-5 px-6 flex align-items-between justify-content-between relative lg:static" style="min-height: 84px">
+  <img src="../../../assets/images/logo.png" alt="Image" (click)="logoUrl()" height="80" class="px-6">
+  <a pRipple class="cursor-pointer block lg:hidden text-600" pStyleClass="@next" enterClass="hidden" leaveToClass="hidden" >
+      <i class="pi pi-bars text-4xl"></i>
+  </a>
+  <div class="align-items-center flex-grow-1 hidden lg:flex absolute lg:static w-full left-0 top-100 z-1">
+
+      <ul class="list-none px-4 flex lg:align-items-center select-none flex-column lg:flex-row flex-grow-1">
+          <li class="flex-order-2 lg:flex-order-0 flex-grow-1">
+              <div class="flex px-6 p-3 lg:px-3 lg:py-2">
+                  <span class="p-input-icon-left w-full">
+                      <i class="pi pi-search text-600"></i>
+                      <input type="text" pInputText placeholder="o que você procura? :)" class="text-600 w-full" />
+                  </span>
+              </div>
+          </li>
+          <li>
+            <div class="px-3 sm:px-6 py-3 flex align-items-stretch justify-content-center sm:justify-content-end">
+
+            <a pRipple *ngIf="!(isLoggedIn)" routerLink="/auth-login" class="text-100 font-bold inline-flex align-items-center cursor-pointer px-3 hover:text-green-500">
+              <i class="pi pi-sign-in mr-2 sm:mr-3 text-sm"></i>
+              <span>Login</span>
+          </a>
+          <div *ngIf="isLoggedIn" routerLink="/account" class="cursor-pointer flex flex-column">
+          <a pRipple icon="pi pi-user" class="text-100 no-underline font-bold align-items-center px-3">
+            Olá, {{ firstname }}
+          </a>
+          <a pRipple class="mt-1 no-underline text-100 font-medium align-items-center px-3">
+            Meus Pedidos
+          </a>
+        </div>
+          <div class="text-900 mx-1 sm:mx-2">|</div>
+          <a pRipple *ngIf="!(isLoggedIn)" routerLink="/register" class="text-100 font-bold inline-flex align-items-center cursor-pointer px-3 hover:text-green-500">
+              <i class="pi pi-user mr-2 sm:mr-3 text-sm"></i>
+              <span>Criar Conta</span>
+          </a>
+          <a  pRipple *ngIf="(isLoggedIn)" (click)="logout()" class="font-bold inline-flex align-items-center cursor-pointer px-3 hover:text-green-500">
+            Sair
+          </a>
+
+            </div>
+          </li>
+          <li class="px-5">
+            <div class="pi pi-shopping-cart"
+            pBadge
+            style="font-size: 2rem"
+            value ="{{ totalQuantity }}"
+            (click)="goCheckoutCart()"
+            >
+            </div>
+          </li>
+      </ul>
+  </div>
+</nav>
+
+<!--MENU-->
+<div class="px-3 py-2 sm:px-6">
+  <ul class="list-none p-0 flex justify-content-between" style="margin: 0 12em;">
+    <li *ngFor="let category of categories" class="flex flex-column lg:flex-row">
+      <a pRipple class="inline-flex align-items-center cursor-pointer border-right-2 lg:border-right-none lg:border-bottom-2 border-transparent hover:border-primary font-normal select-none text-2xl lg:text-base font-medium lg:font-base w-full lg:w-auto"
+         (click)="handleCategoryClick(category)">
+        <span class="text-xl" style="color: #FFD62D;">{{category.name}}</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+</ng-container>
+
+
+

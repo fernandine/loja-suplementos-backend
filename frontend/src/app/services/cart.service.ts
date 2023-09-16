@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import Decimal from 'decimal.js';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { CartItem } from '../common/cart-item';
-import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +10,10 @@ export class CartService {
 
   private discountValue: Decimal = new Decimal(0);
   public totalValue: Decimal = new Decimal(0);
+
 cartItems: CartItem[] = [];
 totalPrice: Subject<number> = new BehaviorSubject<number>(0);
 totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
-
 storage: Storage = sessionStorage;
 
 constructor() {
@@ -22,7 +21,6 @@ constructor() {
 
   if (data != null) {
     this.cartItems = data;
-
     this.computeCartTotals();
   }
 }
@@ -32,10 +30,7 @@ addToCart(theCartItem: CartItem) {
   let existingCartItem: CartItem | undefined;
 
   if (this.cartItems.length > 0) {
-
     existingCartItem = this.cartItems.find(tempCartItem => tempCartItem.id === theCartItem.id)
-
-
     alreadyExistsInCart = (existingCartItem != undefined);
   }
 
@@ -58,7 +53,6 @@ computeCartTotals() {
 
   this.totalPrice.next(totalPriceValue);
   this.totalQuantity.next(totalQuantityValue);
-
   this.persistCartItems();
 }
 
@@ -67,16 +61,13 @@ persistCartItems() {
 }
 
 logCartData(totalPriceValue: number, totalQuantityValue: number) {
-
   for (let cartItem of this.cartItems) {
     const subTotalPrice = cartItem.price * cartItem.quantity;
   }
 }
 
 decrementQuantity(theCartItem: CartItem) {
-
   theCartItem.quantity--;
-
   if (theCartItem.quantity === 0) {
     this.remove(theCartItem);
   }
@@ -87,13 +78,11 @@ decrementQuantity(theCartItem: CartItem) {
 
 remove(cartItem: CartItem) {
   const itemIndex = this.cartItems.findIndex(tempCartItem => tempCartItem.id === cartItem.id);
-
   if (itemIndex > -1) {
     this.cartItems.splice(itemIndex, 1);
     this.computeCartTotals();
   }
 }
-
 
   setDiscountValue(discountValue: Decimal): void {
     this.discountValue = discountValue;

@@ -1,0 +1,127 @@
+<form [formGroup]="orderForm" class="formgrid grid">
+  <div class="col-12">
+    <label for="email" class="text-900 font-medium mb-3">Email</label>
+    <input pInputText id="email" formControlName="email" type="text" class="mb-3">
+    <p-checkbox inputId="id" name="checkbox" [binary]="true" label="Quero receber notícias e ofertas neste email."
+      class="text-900"></p-checkbox>
+  </div>
+
+  <p-divider class="w-full px-2 mb-3"></p-divider>
+
+  <div class="col-12 mt-4 lg:mt-0 mb-4">
+    <div class="text-900 font-medium text-xl">Entrega</div>
+  </div>
+
+    <div class="col-12 lg:col-6 mb-0">
+      <label for="firstname" class="text-900 font-medium mb-3">Nome</label>
+      <input pInputText id="firstname" formControlName="firstname" type="text" class="mb-3">
+    </div>
+    <div class="col-12 lg:col-6 mb-0">
+      <label for="lastname" class="text-900 font-medium mb-3">Sobrenome</label>
+      <input pInputText id="lastname" formControlName="lastname" type="text" class="mb-3">
+    </div>
+    <div class="col-12 lg:col-4 mb-0">
+      <label for="phone" class="text-900 font-medium mb-3">Telefone</label>
+      <input pInputText id="phone" formControlName="phone" type="text" class="mb-3">
+    </div>
+    <div class="col-12 lg:col-4 mb-0">
+      <label for="cpf" class="text-900 font-medium mb-3">CPF</label>
+      <input pInputText id="cpf" formControlName="cpf" type="text" class="mb-3">
+    </div>
+
+      <div class="col-12 lg:col-6 mb-0">
+        <label for="cep" class="text-900 font-medium mb-3">CEP</label>
+        <input pInputText id="cep" formControlName="cep" type="text" class="mb-3">
+      </div>
+      <div class="col-12 lg:col-8 mb-0">
+        <label for="logradouro" class="text-900 font-medium mb-3">Logradouro</label>
+        <input pInputText id="logradouro" formControlName="logradouro" type="text" class="mb-3">
+      </div>
+      <div class="col-12 lg:col-4 mb-0">
+        <label for="complemento" class="text-900 font-medium mb-3">Complemento</label>
+        <input pInputText id="complemento" formControlName="complemento" type="text" class="mb-3">
+      </div>
+      <div class="col-12 lg:col-6 mb-0">
+        <label for="bairro" class="text-900 font-medium mb-3">Bairro</label>
+        <input pInputText id="bairro" formControlName="bairro" type="text" class="mb-3">
+      </div>
+      <div class="col-12 lg:col-4 mb-0">
+        <label for="localidade" class="text-900 font-medium mb-3">Cidade</label>
+        <input pInputText id="localidade" formControlName="localidade" type="text" class="mb-3">
+      </div>
+      <div class="col-12 lg:col-2 mb-0">
+        <label for="uf" class="text-900 font-medium mb-3">UF</label>
+        <input pInputText id="uf" formControlName="uf" type="text" class="mb-3">
+      </div>
+
+      <p-divider class="w-full px-2 mb-3"></p-divider>
+
+      <div class="text-900 font-medium text-xl mt-4 lg:mt-0 mb-4 px-2">Método de Envio</div>
+      <div class="col-12 flex flex-column lg:flex-row field">
+        <div
+          class="flex justify-content-between p-3 border-round border-1 surface-border w-full mr-3 hover:border-primary cursor-pointer">
+          <div class="mr-3 lg:mr-0">
+            <div class="text-900 font-bold mb-2">Correios</div>
+            <span class="text-600">Delivery: Tomorrow</span>
+          </div>
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-primary mr-2 font-medium">R$9,00</span>
+          </div>
+        </div>
+        <div
+          class="flex justify-content-between p-3 mt-3 lg:mt-0 border-round border-1 surface-border w-full hover:border-primary cursor-pointer">
+          <div class="mr-3 lg:mr-0">
+            <div class="text-900 font-bold mb-2">Transportadora</div>
+            <span class="text-600">Delivery: Next Week</span>
+          </div>
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-primary mr-2 font-medium">R$18,36</span>
+          </div>
+        </div>
+      </div>
+    </form>
+      <p-divider class="w-full px-2 mb-3"></p-divider>
+
+      <div class="text-900 font-medium text-xl mt-4 lg:mt-0 mb-4 px-2">Pagamento</div>
+      <div class="col-12 mb-4">
+        <div class="p-3 border-1 border-round-top surface-border">
+          <p-radioButton name="paypal" value="paypal" inputId="paypal"></p-radioButton>
+          <label for="paypal" class="text-900 ml-3">Pix</label>
+        </div>
+        <div class="p-3 border-x-1 surface-border">
+          <p-radioButton name="paypal" value="paypal" inputId="paypal"></p-radioButton>
+          <label for="creditCard" class="text-900 ml-3">Cartão de Crédito</label>
+        </div>
+        <div class="p-3 border-1 border-round-bottom surface-border">
+          <p-radioButton name="paypal" value="paypal" inputId="paypal"></p-radioButton>
+          <label for="bank" class="text-900 ml-3">Boleto Bancário</label>
+        </div>
+      </div>
+      <div class="col-12 field mb-4">
+        <form class="relative">
+          <label for="cc" class="text-900 font-medium mb-3 block">Número do Cartão</label>
+          <input id="cc" type="text" name="cc" pInputText placeholder="1234-1234-1234-1234"
+
+            style="margin-right: .5em">
+        </form>
+      </div>
+      <div class="col-12 lg:col-6 field mb-4">
+        <form  class="relative">
+          <label for="exp" class="text-900 font-medium mb-3 block">Data de expiração</label>
+          <input id="exp" type="text" name="exp" pInputText style="margin-right: .5em">
+        </form>
+      </div>
+      <div class="col-12 lg:col-6 field mb-4">
+        <form class="relative">
+          <label for="cvc" class="text-900 font-medium mb-3 block">Código de segurança</label>
+          <input id="cvc" type="text" name="cvc" placeholder="123" style="margin-right: .5em">
+        </form>
+      </div>
+      <div class="col-12 field mb-0">
+        <label for="holderName" class="text-900 font-medium mb-3">Nome</label>
+        <input id="holderName" type="text" class="p-inputtext w-full mb-3">
+      </div>
+
+
+
+

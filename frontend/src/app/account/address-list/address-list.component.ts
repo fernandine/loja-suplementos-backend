@@ -1,24 +1,23 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Address } from 'src/app/common/address';
+import { User } from 'src/app/common/user';
 import { AddressService } from 'src/app/services/address.service';
-import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-address-list',
   templateUrl: './address-list.component.html',
-  styleUrls: ['./address-list.component.scss']
+  styleUrls: ['./address-list.component.scss'],
 })
 export class AddressListComponent {
-  adresses$!: Observable<Address[]>;
-  userId!: number;
 
+  addresses: Address[] = [];
   showAddAddressDialog = false;
 
   constructor(
     private addressService: AddressService,
-    private authService: AuthService,
+    private userService: UserService,
     private notificationService: NotificationService
   ) {}
 
@@ -27,19 +26,18 @@ export class AddressListComponent {
   }
 
   loadAddresses() {
-    const currentUserId = this.authService.getCurrentUser();
-    if (currentUserId) {
-      this.userId = currentUserId.id;
-      this.adresses$ = this.addressService.getByUserId(this.userId);
-    }
+    this.userService.getAuthenticatedUser().subscribe(
+      (user: User) => {
+        this.addresses = user.addressList;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   openAddAddressDialog() {
     this.showAddAddressDialog = true;
-  }
-
-  editAddress(address: Address) {
-    console.log('Endereço editado:', address);
   }
 
   confirmDelete(id: string) {
@@ -53,6 +51,7 @@ export class AddressListComponent {
       );
     }
   }
+
   onSuccess(message: string) {
     this.notificationService.success(message);
   }
