@@ -5,13 +5,15 @@ import { PrimengModule } from '../primeng.module';
 import { CurrencyFormatPipe } from './pipe/currency-format.pipe';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
-import { FormsModule } from '@angular/forms';
 import { HeaderMobileComponent } from './layout/header-mobile/header-mobile.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NameStatusOrderPipe } from './pipe/name-status-order.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     PrimengModule,
+    ReactiveFormsModule,
     FormsModule
   ],
   declarations: [
@@ -19,13 +21,15 @@ import { HeaderMobileComponent } from './layout/header-mobile/header-mobile.comp
     FooterComponent,
     CurrencyFormatPipe,
     BooleanPipe,
-    HeaderMobileComponent
+    HeaderMobileComponent,
+    NameStatusOrderPipe
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     CurrencyFormatPipe,
-    BooleanPipe
+    BooleanPipe,
+    NameStatusOrderPipe
   ],
 })
 export class SharedModule {}

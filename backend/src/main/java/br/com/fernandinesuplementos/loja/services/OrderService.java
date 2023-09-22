@@ -18,16 +18,12 @@ public class OrderService {
 
     @Autowired
     private OrderRepository repository;
-    
     @Autowired
     private ProductRepository productRepository;
-    
     @Autowired
     private OrderItemRepository orderItemRepository;
-    
     @Autowired
     private UserService userService;
-    
     @Autowired
     private AuthService authService;
 
@@ -43,7 +39,7 @@ public class OrderService {
 	public OrderDto insert(OrderDto dto) {
 		
     	Order order = new Order();
-    	
+
     	order.setMoment(Instant.now());
     	order.setStatus(OrderStatus.WAITING_PAYMENT);
     	

@@ -21,10 +21,10 @@ import { AboutComponent } from './single/about/about.component';
 import { ContactComponent } from './single/contact/contact.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'auth-login', component: LoginComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: '', redirectTo: '/auth-login', pathMatch: 'full' },
+  { path: 'auth-login', component: LoginComponent },
+
   { path: 'account', component: AccountComponent, children: [
     { path: 'profile', component: ProfilesComponent },
     { path: 'address', component: AddressListComponent },

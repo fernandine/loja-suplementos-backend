@@ -8,6 +8,7 @@ import { CartDetailComponent } from './cart-detail/cart-detail.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { OrderFormComponent } from './order-form/order-form.component';
 import { OrderListComponent } from './order-list/order-list.component';
+import { NameStatusOrderPipe } from '../shared/pipe/name-status-order.pipe';
 
 @NgModule({
   declarations: [

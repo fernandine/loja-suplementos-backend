@@ -60,6 +60,11 @@ export class AuthService {
     return !!currentUser && !!currentUser.token;
   }
 
+  getToken(): string {
+    const currentUser = this.storageService.getItem('currentUser') || {};
+    return currentUser.token;
+  }
+
   logout(): void {
     this.storageService.removeItem('currentUser');
   }

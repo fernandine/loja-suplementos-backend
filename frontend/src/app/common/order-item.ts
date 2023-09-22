@@ -1,8 +1,10 @@
-export interface OrderItem {
-  productId: string;
-  name: string;
-  price: number;
-  quantity: number;
-  imgUrl: string;
-  subTotal: number;
+export class OrderItem {
+  constructor(
+    public productId: string,
+    public name: string,
+    public price: number,
+    public quantity: number,
+    public imgUrl: string
+  ) {}
 }
+

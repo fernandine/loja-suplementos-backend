@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import Decimal from 'decimal.js';
-import { SelectItem } from 'primeng/api';
-import { Observable, take } from 'rxjs';
 import { CartItem } from 'src/app/common/cart-item';
-import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
-import { DiscountService } from 'src/app/services/discount.service';
 
 @Component({
   selector: 'app-cart-detail',

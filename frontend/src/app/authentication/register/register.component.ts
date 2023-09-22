@@ -24,13 +24,8 @@ export class RegisterComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       cpf: ['', [Validators.required]],
-      birthDay: ['', [Validators.required]],
-      roles: [[]],
+      phone: ['', [Validators.required]],
     });
-  }
-
-  get form() {
-    return this.userForm.controls;
   }
 
   onLogin() {
@@ -46,7 +41,6 @@ export class RegisterComponent {
     this.userService.createUser(this.userForm.value).subscribe(
       (response) => {
         console.log('Usuário registrado com sucesso!', response);
-        localStorage.setItem('user', JSON.stringify(response));
         this.router.navigate(['/auth-login']);
       },
       (error) => console.log('Erro ao registrar usuário', error)

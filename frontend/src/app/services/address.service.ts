@@ -36,8 +36,8 @@ export class AddressService {
     return this.http.post<Address>(this.apiUrl, address);
   }
 
-  updateAddress(id:string, value: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, value);
+  updateAddress(id:string, value: any): Observable<Address> {
+    return this.http.put<Address>(`${this.apiUrl}/${id}`, value);
   }
 
   deleteAddress(id: string): Observable<void> {

@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +31,7 @@ public class CategoryService {
     public List<CategoryDto> findAll() {
         List<Category> list = repository.findAll();
         return list.stream()
-                .map(order -> modelMapper.map(order, CategoryDto.class))
+                .map(entity -> modelMapper.map(entity, CategoryDto.class))
                 .collect(Collectors.toList());
     }
 

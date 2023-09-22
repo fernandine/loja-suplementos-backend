@@ -97,10 +97,6 @@ export class ProductService {
     return this.http.get<Product[]>(url);
   }
 
-  getProductSearch(searchUrl: string): Observable<Product[]> {
-    return this.http.get<Product[]>(searchUrl)
-      .pipe(map(response => response));
-  }
 
   getProductByCategoryName(categoryName: string): Observable<Product[]> {
     const url = `${this.apiUrl}/categories?name=${categoryName}`;
@@ -113,15 +109,4 @@ export class ProductService {
     );
   }
 
-  createProduct(product: Product): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, product);
-  }
-
-  updateProduct(id: number, value: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, value);
-  }
-
-  deleteProduct(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
-  }
 }

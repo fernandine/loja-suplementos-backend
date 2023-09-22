@@ -34,7 +34,7 @@ export class DiscountService {
       .pipe(map((response) => response));
   }
 
-  insert(discount: Discount): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, discount);
+  insert(discount: Discount): Observable<Discount> {
+    return this.http.post<Discount>(`${this.apiUrl}`, discount);
   }
 }

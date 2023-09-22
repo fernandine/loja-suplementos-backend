@@ -4,11 +4,11 @@ import br.com.fernandinesuplementos.loja.entities.OrderItem;
 
 public class OrderItemDto {
 
-	private Long productId;
-	private String name;
-	private Double price;
-	private Integer quantity;
-	private String imgUrl;
+	private final Long productId;
+	private final String name;
+	private final Double price;
+	private final Integer quantity;
+	private final String imgUrl;
 	
 	public OrderItemDto(Long productId, String name, Double price, Integer quantity, String imgUrl) {
 		this.productId = productId;

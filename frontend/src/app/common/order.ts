@@ -1,10 +1,10 @@
 import { OrderItem } from "./order-item";
-import { Client } from './client';
 import { StatusOrder } from "../common/enums/status-order.enum";
 import { Payment } from "../common/payment";
+import { Client } from './client';
 
 export interface Order {
-  id: string;
+  id: number;
   moment: Date;
   status: StatusOrder;
   client: Client;

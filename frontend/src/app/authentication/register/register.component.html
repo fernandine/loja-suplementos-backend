@@ -1,95 +1,40 @@
-<div
-  class="surface-ground p-8 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden"
->
+<div class="surface-ground p-8 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
   <div class="flex flex-column align-items-center justify-content-center">
     <div class="w-8 surface-card py-8 px-5 sm:px-8" style="border-radius: 53px">
       <div class="text-center mb-5">
         <div class="text-900 text-3xl font-medium mb-3">Cadastre-se</div>
-        <span class="text-600 font-medium line-height-3"
-          >Já tem conta conosco?</span
-        >
-        <a
-          class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
-          (click)="onLogin()"
-          >Faça o login!</a
-        >
+        <span class="text-600 font-medium line-height-3">Já tem conta conosco?</span>
+        <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer" (click)="onLogin()">Faça o login!</a>
       </div>
       <form [formGroup]="userForm" (ngSubmit)="onRegister()">
         <!--INPUT EMAIL-->
-        <label for="email" class="block text-900 text-xl font-medium mb-2"
-          >E-mail</label
-        >
-        <input
-          pInputText
-          style="padding: 1rem"
-          class="w-full md:w-full mb-5"
-          formControlName="email"
-        />
+        <label for="email" class="block text-900 text-xl font-medium mb-2">E-mail</label>
+        <input pInputText style="padding: 1rem" class="w-full md:w-full mb-5" formControlName="email" />
         <div class="grid">
           <!--INPUT FIRSTNAME-->
           <div class="col-6">
-            <label
-              for="firstname"
-              class="block text-900 text-xl font-medium mb-2"
-              >Nome</label
-            >
-            <input
-              pInputText
-              style="padding: 1rem"
-              class="w-full mr-1 mb-5"
-              formControlName="firstname"
-            />
+            <label for="firstname" class="block text-900 text-xl font-medium mb-2">Nome</label>
+            <input pInputText style="padding: 1rem" class="w-full mr-1 mb-5" formControlName="firstname" />
           </div>
           <!--INPUT LASTNAME-->
           <div class="col-6">
-            <label
-              for="lastName"
-              class="block text-900 text-xl font-medium mb-2"
-              >Sobrenome</label
-            >
-            <input
-              pInputText
-              style="padding: 1rem"
-              class="w-full mb-5"
-              formControlName="lastName"
-            />
+            <label for="lastName" class="block text-900 text-xl font-medium mb-2">Sobrenome</label>
+            <input pInputText style="padding: 1rem" class="w-full mb-5" formControlName="lastName" />
           </div>
           <!--INPUT CPF-->
           <div class="col-6">
             <label for="cpf" class="block text-900 text-xl mb-2">CPF</label>
-            <input
-              pInputText
-              style="padding: 1rem"
-              formControlName="cpf"
-              class="w-full mr-1 mb-5"
-            />
+            <input pInputText style="padding: 1rem" formControlName="cpf" class="w-full mr-1 mb-5" />
           </div>
           <!--INPUT BIRTHDATY-->
           <div class="col-6">
-            <label
-              for="birthDay"
-              class="block text-900 font-medium text-xl mb-2"
-              >Data de Nascimento</label
-            >
-            <p-inputMask
-              formControlName="birthDay"
-              mask="99/99/9999"
-              placeholder="__/__/____"
-              slotChar="mm/dd/yyyy"
-              styleClass="w-full mb-5"
-            ></p-inputMask>
+            <label for="birthDay" class="block text-900 font-medium text-xl mb-2">Telefone</label>
+            <input pInputText formControlName="phone" class="w-full mb-5"/>
           </div>
           <!--INPUT PASSWORD-->
           <div class="col-6">
-            <label
-              for="password"
-              class="block text-900 font-medium text-xl mb-2"
-              >Senha</label
-            >
-            <p-password
-              formControlName="password"
-              inputStyleClass="w-full p-3 mr-1"
-            >
+            <label for="password" class="block text-900 font-medium text-xl mb-2">Senha</label>
+            <p-password formControlName="password" inputStyleClass="w-full p-3 mr-1">
               <ng-template pTemplate="header">
                 <h6>Senha</h6>
               </ng-template>
@@ -109,37 +54,20 @@
 
           <!--REPEAT PASSWORD-->
           <div class="col-6">
-            <label
-              for="password"
-              class="block text-900 font-medium text-xl mb-2"
-              >Repita a Senha</label
-            >
-            <p-password
-              formControlName="password"
-              inputStyleClass="w-full p-3"
-            ></p-password>
+            <label for="password" class="block text-900 font-medium text-xl mb-2">Repita a Senha</label>
+            <p-password formControlName="password" inputStyleClass="w-full p-3"></p-password>
           </div>
         </div>
 
         <div class="py-4 text-800">
-          <span
-            >Ao criar a conta, você concorda com a nossa
-            <a
-              href="https://www.fernandinesuplementos.com.br/politica-de-privacidade"
-              >Política de Privacidade</a
-            >.</span
-          >
+          <span>Ao criar a conta, você concorda com a nossa
+            <a href="https://www.fernandinesuplementos.com.br/politica-de-privacidade">Política de
+              Privacidade</a>.</span>
         </div>
         <span></span>
 
         <div class="flex align-items-center justify-content-between mt-5 gap-5">
-          <button
-            pButton
-            pRipple
-            label="Cadastrar"
-            class="w-full p-3 text-xl"
-            type="submit"
-          ></button>
+          <button pButton pRipple label="Cadastrar" class="w-full p-3 text-xl" type="submit"></button>
         </div>
       </form>
     </div>

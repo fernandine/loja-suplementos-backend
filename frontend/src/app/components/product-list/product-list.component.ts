@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import Decimal from 'decimal.js';
 import { Category } from 'src/app/common/Category';
 import { Product } from 'src/app/common/product';
 import { CategoryService } from 'src/app/services/category.service';
@@ -43,19 +42,9 @@ export class ProductListComponent {
       this.currentCategoryName = categoryName;
       this.productService.getProductByCategoryName(categoryName).subscribe(
         data => {
-          this.products = data.map(product => {
-            return {
-              ...product,
-              unitPrice: new Decimal(product.unitPrice)
-            };
-          });
+          this.products = data; // Atribua os produtos diretamente
         }
       );
     });
   }
-/* RETIRADO O BOTÃO COMPRAR DA LISTA DE PRODUTOS
-  addToCart(theProduct: Product) {
-    const theCartItem = new CartItem(theProduct);
-    this.cartService.addToCart(theCartItem);
-  }*/
 }

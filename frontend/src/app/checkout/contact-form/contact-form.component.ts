@@ -12,7 +12,6 @@ import { UserService } from '../../services/user.service';
 })
 export class ContactFormComponent {
   orderForm = this.fb.group({
-    checkbox: [true],
     firstname: ['', [Validators.required]],
     lastname: ['', [Validators.required]],
     cpf: [

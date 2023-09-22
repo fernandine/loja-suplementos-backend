@@ -4,6 +4,7 @@ import br.com.fernandinesuplementos.loja.entities.Order;
 import br.com.fernandinesuplementos.loja.entities.OrderItem;
 import br.com.fernandinesuplementos.loja.entities.OrderStatus;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.Instant;
 import java.util.ArrayList;

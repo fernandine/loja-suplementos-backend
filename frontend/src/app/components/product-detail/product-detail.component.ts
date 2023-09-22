@@ -56,8 +56,8 @@ export class ProductDetailComponent {
     this.cartItem = {
       id: this.product.id,
       name: this.product.name,
-      imageCart: this.product.image,
-      price: this.product.unitPrice.toNumber(),
+      imgUrl: this.product.image,
+      price: this.product.unitPrice,
       quantity: 1,
     };
     this.cartService.addToCart(this.cartItem);

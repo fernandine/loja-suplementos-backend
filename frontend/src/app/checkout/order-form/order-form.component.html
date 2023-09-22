@@ -10,52 +10,152 @@
           </div>
         </div>
 
-        <app-contact-form></app-contact-form>
+        <form [formGroup]="form" class="formgrid grid">
+          <div class="col-12">
+            <label for="email" class="text-900 font-medium mb-3">Email</label>
+            <input pInputText id="email" formControlName="email" type="text" class="mb-3">
+            <p-checkbox inputId="id" name="checkbox" [binary]="true" label="Quero receber notícias e ofertas neste email."
+              class="text-900"></p-checkbox>
+          </div>
 
+          <p-divider class="w-full px-2 mb-3"></p-divider>
+
+          <div class="col-12 mt-4 lg:mt-0 mb-4">
+            <div class="text-900 font-medium text-xl">Entrega</div>
+          </div>
+
+            <div class="col-12 lg:col-6 mb-0">
+              <label for="firstname" class="text-900 font-medium mb-3">Nome</label>
+              <input pInputText id="firstname" formControlName="firstname" type="text" class="mb-3">
+            </div>
+            <div class="col-12 lg:col-6 mb-0">
+              <label for="lastname" class="text-900 font-medium mb-3">Sobrenome</label>
+              <input pInputText id="lastname" formControlName="lastname" type="text" class="mb-3">
+            </div>
+            <div class="col-12 lg:col-4 mb-0">
+              <label for="phone" class="text-900 font-medium mb-3">Telefone</label>
+              <input pInputText id="phone" formControlName="phone" type="text" class="mb-3">
+            </div>
+            <div class="col-12 lg:col-4 mb-0">
+              <label for="cpf" class="text-900 font-medium mb-3">CPF</label>
+              <input pInputText id="cpf" formControlName="cpf" type="text" class="mb-3">
+            </div>
+
+              <div class="col-12 lg:col-6 mb-0">
+                <label for="cep" class="text-900 font-medium mb-3">CEP</label>
+                <input pInputText id="cep" formControlName="cep" type="text" class="mb-3">
+              </div>
+              <div class="col-12 lg:col-8 mb-0">
+                <label for="logradouro" class="text-900 font-medium mb-3">Logradouro</label>
+                <input pInputText id="logradouro" formControlName="logradouro" type="text" class="mb-3">
+              </div>
+              <div class="col-12 lg:col-4 mb-0">
+                <label for="complemento" class="text-900 font-medium mb-3">Complemento</label>
+                <input pInputText id="complemento" formControlName="complemento" type="text" class="mb-3">
+              </div>
+              <div class="col-12 lg:col-6 mb-0">
+                <label for="bairro" class="text-900 font-medium mb-3">Bairro</label>
+                <input pInputText id="bairro" formControlName="bairro" type="text" class="mb-3">
+              </div>
+              <div class="col-12 lg:col-4 mb-0">
+                <label for="localidade" class="text-900 font-medium mb-3">Cidade</label>
+                <input pInputText id="localidade" formControlName="localidade" type="text" class="mb-3">
+              </div>
+              <div class="col-12 lg:col-2 mb-0">
+                <label for="uf" class="text-900 font-medium mb-3">UF</label>
+                <input pInputText id="uf" formControlName="uf" type="text" class="mb-3">
+              </div>
+            </form>
+
+    <p-divider class="w-full px-2 mb-3"></p-divider>
+
+    <div class="text-900 font-medium text-xl mt-4 lg:mt-0 mb-4 px-2">Pagamento</div>
+    <div class="col-12 mb-4">
+      <div class="p-3 border-1 border-round-top surface-border">
+        <p-checkbox inputId="id" name="checkbox" [binary]="true"
+        class="text-900"></p-checkbox>
+        <label for="paypal" class="text-900 ml-3">Pix</label>
+      </div>
+      <div class="p-3 border-x-1 surface-border">
+        <p-checkbox inputId="id" name="checkbox" [binary]="true"
+        class="text-900"></p-checkbox>
+        <label for="creditCard" class="text-900 ml-3">Cartão de Crédito</label>
+      </div>
+      <div class="p-3 border-1 border-round-bottom surface-border">
+        <p-checkbox inputId="id" name="checkbox" [binary]="true"
+        class="text-900"></p-checkbox>
+        <label for="bank" class="text-900 ml-3">Boleto Bancário</label>
       </div>
     </div>
+    <div class="col-12 field mb-4">
+      <form class="relative">
+        <label for="cc" class="text-900 font-medium mb-3 block">Número do Cartão</label>
+        <input id="cc" type="text" name="cc" pInputText placeholder="1234-1234-1234-1234"
 
-    <div class="col-12 lg:col-4 p-4">
-      <div class="surface-card border-round shadow-2 p-5">
-        <div class="flex justify-content-between align-items-center border-bottom-1 pb-3 surface-border">
-          <span class="text-900 font-medium text-lg lg:text-xl"><i class="pi pi-shopping-cart text-xl mr-2"></i>Seu
-            pedido</span>
-          <a tabindex="0" routerLink="/cart-details" class="text-600 font-medium cursor-pointer hover:text-primary">Alterar pedido</a>
-        </div>
-
-        <div *ngFor="let item of cartItems"
-          class="flex flex-column lg:flex-row flex-wrap lg:align-items-center py-3 my-3 border-bottom-1 surface-border">
-          <img src="{{ item.imageCart }}" class="w-4rem h-4rem flex-shrink-0 mb-3" />
-          <div class="flex-auto lg:ml-3">
-            <div class="flex align-items-center justify-content-between mb-3">
-              <span class="text-900 font-medium">{{ item.name }}</span>
-              <span class="text-900 font-bold mx-3">{{ item.price | currencyFormat }}</span>
-            </div>
-            <div class="text-600 text-sm mb-3"></div>
-            <div class="flex flex-auto justify-content-between align-items-center">
-              <p-button type="button" buttonLayout="horizontal" styleClass="p-button-sm p-button-danger" decrementButtonClass="p-button-danger" icon="pi pi-minus" (click)="decrementQuantity(item)" [disabled]="item.quantity <= 1"></p-button>
-              <p-inputNumber [(ngModel)]="item.quantity" inputId="integeronly" class="p-inputtext-sm text-800 px-2"></p-inputNumber>
-              <p-button type="button" buttonLayout="horizontal" styleClass="p-button-sm p-button-success" incrementButtonClass="p-button-success" icon="pi pi-plus" (click)="incrementQuantity(item)"></p-button>
-            </div>
-          </div>
-        </div>
-
-        <div class="py-2 mt-3 border-bottom-1 surface-border">
-          <div class="flex justify-content-between align-items-center mb-3">
-            <span class="text-900">Subtotal</span>
-            <span class="text-900">{{ getSubtotal() | currencyFormat }}</span>
-          </div>
-          <div class="flex justify-content-between align-items-center mb-3">
-            <span class="text-900">Shipping</span>
-            <span class="text-900">Free</span>
-          </div>
-          <div class="flex justify-content-between align-items-center mb-3">
-            <span class="text-900">Total</span>
-            <span class="text-900 font-bold">{{ totalPrice | currencyFormat }}</span>
-          </div>
-        </div>
-        <button pButton class="p-button-primary" (click)="onSubmit()" label="FINALIZAR PEDIDO" class="w-full mt-3"></button>
-      </div>
+          style="margin-right: .5em">
+      </form>
     </div>
+    <div class="col-12 lg:col-6 field mb-4">
+      <form  class="relative">
+        <label for="exp" class="text-900 font-medium mb-3 block">Data de expiração</label>
+        <input id="exp" type="text" name="exp" pInputText style="margin-right: .5em">
+      </form>
+    </div>
+    <div class="col-12 lg:col-6 field mb-4">
+      <form class="relative">
+        <label for="cvc" class="text-900 font-medium mb-3 block">Código de segurança</label>
+        <input id="cvc" type="text" name="cvc" placeholder="123" style="margin-right: .5em">
+      </form>
+    </div>
+    <div class="col-12 field mb-0">
+      <label for="holderName" class="text-900 font-medium mb-3">Nome</label>
+      <input id="holderName" type="text" class="p-inputtext w-full mb-3">
+    </div>
+
   </div>
+</div>
+
+<div class="col-12 lg:col-4 p-4">
+  <div class="surface-card border-round shadow-2 p-5">
+    <div class="flex justify-content-between align-items-center border-bottom-1 pb-3 surface-border">
+      <span class="text-900 font-medium text-lg lg:text-xl"><i class="pi pi-shopping-cart text-xl mr-2"></i>Seu
+        pedido</span>
+      <a tabindex="0" routerLink="/cart-details" class="text-600 font-medium cursor-pointer hover:text-primary">Alterar pedido</a>
+    </div>
+
+    <div *ngFor="let item of cartItems"
+      class="flex flex-column lg:flex-row flex-wrap lg:align-items-center py-3 my-3 border-bottom-1 surface-border">
+      <img src="{{ item.imgUrl }}" class="w-4rem h-4rem flex-shrink-0 mb-3" />
+      <div class="flex-auto lg:ml-3">
+        <div class="flex align-items-center justify-content-between mb-3">
+          <span class="text-900 font-medium">{{ item.name }}</span>
+          <span class="text-900 font-bold mx-3">{{ item.price | currencyFormat }}</span>
+        </div>
+        <div class="text-600 text-sm mb-3"></div>
+        <div class="flex flex-auto justify-content-between align-items-center">
+          <p-button type="button" buttonLayout="horizontal" styleClass="p-button-sm p-button-danger" decrementButtonClass="p-button-danger" icon="pi pi-minus" (click)="decrementQuantity(item)" [disabled]="item.quantity <= 1"></p-button>
+          <p-inputNumber [(ngModel)]="item.quantity" inputId="integeronly" class="p-inputtext-sm text-800 px-2"></p-inputNumber>
+          <p-button type="button" buttonLayout="horizontal" styleClass="p-button-sm p-button-success" incrementButtonClass="p-button-success" icon="pi pi-plus" (click)="incrementQuantity(item)"></p-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="py-2 mt-3 border-bottom-1 surface-border">
+      <div class="flex justify-content-between align-items-center mb-3">
+        <span class="text-900">Subtotal</span>
+        <span class="text-900">{{ getSubtotal() | currencyFormat }}</span>
+      </div>
+      <div class="flex justify-content-between align-items-center mb-3">
+        <span class="text-900">Shipping</span>
+        <span class="text-900">Free</span>
+      </div>
+      <div class="flex justify-content-between align-items-center mb-3">
+        <span class="text-900">Total</span>
+        <span class="text-900 font-bold">{{ totalPrice | currencyFormat }}</span>
+      </div>
+    </div>
+    <button pButton class="p-button-primary" (click)="onSubmit()" label="FINALIZAR PEDIDO" class="w-full mt-3"></button>
+  </div>
+</div>
+</div>
 </div>
