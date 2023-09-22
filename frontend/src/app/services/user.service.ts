@@ -21,11 +21,9 @@ export class UserService {
 
   getAuthenticatedUser(): Observable<User> {
     const authToken = this.service.getToken();
-
     const headers = {
       Authorization: `Bearer ${authToken}`,
     };
-
       return this.http.get<User>(`${this.apiUrl}/me`, { headers });
     }
 

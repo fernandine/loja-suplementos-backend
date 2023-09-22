@@ -2,6 +2,7 @@ package br.com.fernandinesuplementos.loja.services;
 
 import br.com.fernandinesuplementos.loja.DTOs.OrderDto;
 import br.com.fernandinesuplementos.loja.DTOs.OrderItemDto;
+import br.com.fernandinesuplementos.loja.DTOs.UserDto;
 import br.com.fernandinesuplementos.loja.entities.*;
 import br.com.fernandinesuplementos.loja.repositories.OrderItemRepository;
 import br.com.fernandinesuplementos.loja.repositories.OrderRepository;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -27,6 +30,11 @@ public class OrderService {
     @Autowired
     private AuthService authService;
 
+    @Transactional
+    public List<OrderDto> findAll() {
+        List<Order> list = repository.findAll();
+        return list.stream().map(OrderDto::new).collect(Collectors.toList());
+    }
     @Transactional(readOnly = true)
     public OrderDto findById(Long id) {
         Order order = repository.findById(id).orElseThrow(

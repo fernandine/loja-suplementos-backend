@@ -23,7 +23,7 @@ public class Address implements Serializable {
     private String bairro;
     private String localidade;
     private String uf;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     private User user;
 }

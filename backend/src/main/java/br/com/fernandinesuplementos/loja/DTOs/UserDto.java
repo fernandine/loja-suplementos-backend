@@ -3,12 +3,10 @@ package br.com.fernandinesuplementos.loja.DTOs;
 import br.com.fernandinesuplementos.loja.entities.Address;
 import br.com.fernandinesuplementos.loja.entities.User;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Negative;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +18,6 @@ public class UserDto implements Serializable {
     private String lastname;
     private String cpf;
     private String phone;
-//    private Instant birthDay;
     @Email(message = "Favor entrar com email válido")
     private String email;
     private List<String> roles = new ArrayList<>();

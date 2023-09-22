@@ -1,36 +1,27 @@
-<ng-container *ngIf="addresses">
-  <div *ngFor="let address of addresses">
-  <div class="p-col-12 p-md-6 p-lg-4">
-    <p-card>
-      <div class="border-1 border-500 border-round w-3 px-3 py-3">
-        <h4>CEP: {{ address.cep }}</h4>
-        <p>{{ address.logradouro }} - {{ address.complemento }}</p>
-        <p>{{ address.bairro }}</p>
-        <p>{{ address.localidade }} - {{ address.uf }}</p>
+<ng-container *ngFor="let address of addresses">
+    <div class="p-col-12 p-md-6 p-lg-4">
+      <p-card>
+        <div class="border-1 border-500 border-round w-3 px-3 py-3">
+          <h4>CEP: {{ address.cep }}</h4>
+          <p>{{ address.logradouro }} - {{ address.complemento }}</p>
+          <p>{{ address.bairro }}</p>
+          <p>{{ address.localidade }} - {{ address.uf }}</p>
 
-        <div class="flex justify-content-end mt-3">
-          <p-button
-          label="Excluir"
-          icon="pi pi-trash"
-          styleClass="p-button-danger"
-          (click)="confirmDelete(address.id)"
-        />
+          <div class="flex justify-content-center gap-3 mt-3">
+            <p-button label="Editar" icon="pi pi-trash" styleClass="p-button-success"
+              (click)="openDialog()" />
+              <p-button label="Excluir" icon="pi pi-trash" styleClass="p-button-danger"
+              (click)="delete(address.id)" />
+          </div>
+
+
         </div>
+      </p-card>
+    </div>
 
-      </div>
-    </p-card>
-  </div>
-  </div>
 </ng-container>
 
-
-<p-button
-
-  label="Adicionar Endereço"
-  icon="pi pi-plus"
-  styleClass="mt-4"
-  (click)="openAddAddressDialog()"
-></p-button>
+<p-button label="Adicionar Endereço" icon="pi pi-plus" styleClass="mt-4" (click)="openDialog()"></p-button>
 
 <p-dialog header="Adicionar Endereço" [(visible)]="showAddAddressDialog">
   <app-address-form></app-address-form>

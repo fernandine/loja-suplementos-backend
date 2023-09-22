@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class NameStatusOrderPipe implements PipeTransform {
 
-  transform(value: string): string {
+  transform(value: any): string {
     switch (value) {
       case 'WAITING_PAYMENT':
         return 'Pendente de pagamento';

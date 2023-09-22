@@ -1,0 +1,102 @@
+<div #orderDetail class="surface-section px-4 py-8 md:px-6 lg:px-8">
+  <div class="font-bold text-700 text-4xl mb-3">
+    Pedido concluído com sucesso! 🚀
+  </div>
+  <p class="text-700 text-xl mt-0 mb-4 line-height-2 p-0">
+    🎉 Seu pedido está a caminho! Será enviado com todo o cuidado e atenção.<br />
+    Fique tranquilo(a), assim que despacharmos, iremos informá-lo(a) sobre o
+    processo de entrega. 📦🚚✉️
+  </p>
+  <div style="
+      height: 3px;
+      background: linear-gradient(90deg, #ffd001 0%, rgba(223, 201, 7, 0) 50%);
+    "></div>
+  <ng-container *ngIf="order">
+    <div class="flex flex-column sm:flex-row sm:align-items-center sm:justify-content-between py-5">
+      <div class="mb-3 sm:mb-0">
+        <span class="font-medium text-xl text-900 mr-2">Número do pedido: {{ order.id }}</span>
+      </div>
+      <div>
+        <button pButton pRipple (click)="onOrderDetail()" label="Detalhes" icon="pi pi-list"
+          class="p-button-outlined p-button-secondary mr-2"></button>
+        <button pButton pRipple (click)="printOrder()" label="Imprimir" icon="pi pi-print" class="p-button-outlined p-button-secondary"></button>
+      </div>
+    </div>
+    <div *ngFor="let item of order.items" class="border-round surface-border border-1">
+      <ul class="list-none p-0 m-0">
+        <li class="p-3 border-bottom-1 surface-border flex align-items-start sm:align-items-center">
+          <img src="{{ item.imgUrl }}" class="w-3rem sm:w-8rem flex-shrink-0 mr-3 shadow-2" />
+          <div class="flex flex-column">
+            <span class="text-900 font-medium text-xl mb-2">
+              {{ item.name }}</span>
+            <span class="text-900 font-medium">Quantidade: {{ item.quantity }}</span>
+          </div>
+          <span class="text-900 font-medium text-lg ml-auto">{{
+            item.price | currencyFormat
+            }}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="flex flex-wrap mt-5 pb-3">
+      <div class="w-full lg:w-6 pl-3">
+        <span class="font-bold text-900">Endereço de entrega</span>
+        <div class="flex flex-column text-900 mt-3 mb-5">
+          <span class="mb-1">Cep {{ order.client.addressList[0].cep }}</span>
+          <span class="mb-1">{{ order.client.addressList[0].logradouro }},
+            {{ order.client.addressList[0].complemento }}</span>
+          <span>Bairro {{ order.client.addressList[0].bairro }}</span>
+          <span>{{ order.client.addressList[0].localidade }} -
+            {{ order.client.addressList[0].uf }}</span>
+        </div>
+
+        <span class="font-bold text-900">Pagamento</span>
+        <div *ngIf="order.payment" class="flex align-items-center mt-3">
+          <div class="flex flex-column">
+
+            <span class="text-900 font-medium">Data: {{ order.payment.moment | date : "dd/MM/yyyy" }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="w-full lg:w-6 pl-3 lg:pl-0 lg:pr-3 flex align-items-end mt-5 lg:mt-0">
+        <ul class="list-none p-0 m-0 w-full">
+          <li class="mb-3">
+            <span class="font-bold text-900">Resumo do pedido</span>
+          </li>
+          <li class="flex justify-content-between mb-3">
+            <span class="text-900">Cliente</span>
+            <span class="text-900 font-medium text-lg">{{ order.client.firstname }} {{ order.client.lastname }}</span>
+          </li>
+          <li class="flex justify-content-between mb-3">
+            <span class="text-900">Telefone</span>
+            <span class="text-900 font-medium text-lg">{{
+              order.client.phone
+              }}</span>
+          </li>
+          <li class="flex justify-content-between mb-3">
+            <span class="text-900">Email</span>
+            <span class="text-900 font-medium text-lg">{{
+              order.client.email
+              }}</span>
+          </li>
+
+          <li class="flex justify-content-between border-top-1 surface-border py-3">
+            <span class="text-blue-500 font-medium">Data do pedido</span>
+            <span class="text-900 font-bold text-lg">{{
+              order.moment | date : "dd/MM/yyyy"
+              }}</span>
+          </li>
+          <li class="flex justify-content-between py-3">
+            <span class="text-blue-500 font-medium">Status</span>
+            <span class="text-900 font-bold text-lg">{{ order.status | statusOrder }}</span>
+          </li>
+          <li class="flex justify-content-between py-3">
+            <span class="text-red-500 text-3xl font-bold">Total</span>
+            <span class="text-red-500 text-2xl text-lg">{{
+              order.total | currencyFormat
+              }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ng-container>
+</div>

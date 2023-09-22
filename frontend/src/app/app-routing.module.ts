@@ -12,13 +12,13 @@ import { RecoverSuccessComponent } from './authentication/recover-success/recove
 import { RegisterComponent } from './authentication/register/register.component';
 import { CartDetailComponent } from './checkout/cart-detail/cart-detail.component';
 import { OrderFormComponent } from './checkout/order-form/order-form.component';
-import { OrderListComponent } from './checkout/order-list/order-list.component';
 import { CategoryFilterComponent } from './components/category-filter/category-filter.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { AboutComponent } from './single/about/about.component';
 import { ContactComponent } from './single/contact/contact.component';
+import { OrderSummaryComponent } from './checkout/order-summary/order-summary.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -43,7 +43,7 @@ const routes: Routes = [
 { path: 'search/:keyword',component: ProductListComponent},
 { path: 'categories', component: ProductListComponent},
 { path: 'order', component: OrderFormComponent },
-{ path: 'order/:id', component: OrderListComponent },
+{ path: 'order/:id', component: OrderSummaryComponent },
 { path: 'about', component: AboutComponent },
 { path: 'contact', component: ContactComponent},
 

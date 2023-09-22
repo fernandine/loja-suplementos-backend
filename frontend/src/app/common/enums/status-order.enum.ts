@@ -1,11 +1,11 @@
 export enum StatusOrder {
 
-  WAITING_PAYMENT = 'Pendente de pagamento',
-  PAID = 'Pago',
-  SHIPPED = 'Enviado',
-  PENDING = 'Pendente',
-  READY_TO_SHIP = 'Pronto para envio',
-  WAITING_PAYMENT_CONFIRMATION = 'Aguardando confirmação do pagamento',
-  DELIVERED = 'Entregue',
-  CANCELED = 'Cancelado',
+  WAITING_PAYMENT,
+  PAID,
+  SHIPPED,
+  PENDING,
+  READY_TO_SHIP,
+  WAITING_PAYMENT_CONFIRMATION,
+  DELIVERED,
+  CANCELED
 }

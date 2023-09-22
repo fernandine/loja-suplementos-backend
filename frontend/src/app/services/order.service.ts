@@ -14,6 +14,10 @@ export class OrderService {
   private http = inject(HttpClient);
   private service = inject(AuthService);
 
+  getOrders(): Observable<Order[]> {
+    return this.http.get<Order[]>(this.apiUrl);
+  }
+
   loadById(id: string): Observable<Order> {
     return this.http.get<Order>(`${this.apiUrl}/${id}`, { withCredentials: true });
   }

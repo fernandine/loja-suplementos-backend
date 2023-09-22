@@ -23,9 +23,7 @@ public class User implements UserDetails, Serializable {
     private String lastname;
     private String cpf;
     private String phone;
-//    @Column(name = "birth_day",
-//            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-//    private Instant birthDay;
+
     @Column(unique = true)
     private String email;
     @JsonIgnore

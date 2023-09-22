@@ -1,5 +1,5 @@
+import { Address } from './../../common/address';
 import { Component } from '@angular/core';
-import { Address } from 'src/app/common/address';
 import { User } from 'src/app/common/user';
 import { AddressService } from 'src/app/services/address.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -11,36 +11,29 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./address-list.component.scss'],
 })
 export class AddressListComponent {
-
+  user!: User
+  address!: Address;
   addresses: Address[] = [];
   showAddAddressDialog = false;
 
   constructor(
+    private service: UserService,
     private addressService: AddressService,
-    private userService: UserService,
-    private notificationService: NotificationService
-  ) {}
+    private notification: NotificationService
+  ) { }
 
-  ngOnInit(): void {
-    this.loadAddresses();
+  ngOnInit() {
+    this.service.getAuthenticatedUser().subscribe((user: User) => {
+      this.user = user;
+      this.addresses = user.addressList;
+    });
   }
 
-  loadAddresses() {
-    this.userService.getAuthenticatedUser().subscribe(
-      (user: User) => {
-        this.addresses = user.addressList;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  openAddAddressDialog() {
+  openDialog() {
     this.showAddAddressDialog = true;
   }
 
-  confirmDelete(id: string) {
+  delete(id: string) {
     if (confirm('Tem certeza que deseja excluir este endereço?')) {
       this.addressService.deleteAddress(id).subscribe(
         () => {
@@ -52,11 +45,12 @@ export class AddressListComponent {
     }
   }
 
+
   onSuccess(message: string) {
-    this.notificationService.success(message);
+    this.notification.success(message);
   }
 
   onError(message: string) {
-    this.notificationService.error(message);
+    this.notification.error(message);
   }
 }

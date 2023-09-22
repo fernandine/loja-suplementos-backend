@@ -1,2 +1,49 @@
-<p>order-history works!</p>
-d
+
+  <div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
+      <div class="flex flex-column md:flex-row justify-content-between align-items-center mb-4">
+          <div class="flex flex-column text-center md:text-left">
+              <span class="text-900 text-3xl font-medium mb-2">Meus pedidos</span>
+          </div>
+          <span class="p-input-icon-right mt-5 mb-2 md:mt-0 md:mb-0 w-full lg:w-25rem">
+              <i class="pi pi-search text-gray-400"></i>
+              <input type="text" class="p-inputtext w-full lg:w-25rem surface-50" placeholder="Search"/>
+          </span>
+      </div>
+      <div *ngFor="let order of orders" class="surface-card grid grid-nogutter border-round shadow-2">
+          <div class="col-12 flex p-2 surface-100 border-round-top">
+              <div class="p-2 flex-auto text-center md:text-left">
+                  <span class="text-700 block">Número do pedido</span>
+                  <span class="text-900 font-medium block mt-2">{{ order.id }}</span>
+              </div>
+              <p-divider align="center" layout="vertical" styleClass="h-full  mx-0 lg:mx-3 surface-border"></p-divider>
+              <div class="p-2 flex-auto text-center md:text-left">
+                  <span class="text-700 block">Data</span>
+                  <span class="text-900 font-medium block mt-2">{{ order.moment | date : "dd/MM/yyyy" }}</span>
+              </div>
+              <p-divider align="center" layout="vertical" styleClass="h-full  mx-0 lg:mx-3 surface-border"></p-divider>
+              <div class="p-2 flex-auto text-center md:text-left">
+                  <span class="text-700 block">Total</span>
+                  <span class="text-900 font-medium block mt-2">{{ order.total | currencyFormat }}</span>
+              </div>
+          </div>
+          <div *ngFor="let item of order.items" class="col-12">
+              <div class="p-2 my-4 flex flex-column lg:flex-row justify-content-between align-items-center">
+                  <div class="flex flex-column lg:flex-row justify-content-center align-items-center px-2">
+                      <img src="{{ item.imgUrl }}" alt="product" class="w-8rem h-8rem mr-3 flex-shrink-0" />
+                      <div class="flex flex-column my-auto text-center md:text-left">
+                          <span class="text-900 font-medium mb-3 mt-3 lg:mt-0">{{ item.name }}</span>
+                          <span class="text-600 text-sm mb-3">Categoria</span>
+                          <a pRipple tabindex="0" routerLink="/home"
+                          class="p-2 no-underline cursor-pointer w-12rem mx-auto lg:mx-0 border-round font-medium text-center border-1 border-primary text-primary transition-duration-150">Comprar novamente</a>
+                      </div>
+                  </div>
+                  <div class="bg-green-50 mr-0 lg:mr-3 mt-4 lg:mt-0 p-2 flex align-items-center" [style.border-radius]="'2.5rem'">
+                      <span class="bg-green-500 text-white flex align-items-center justify-content-center border-circle mr-2" style="min-width:2rem; min-height: 2rem">
+                          <i class="pi pi-check"></i>
+                      </span>
+                      <span class="text-green-600">{{ order.status | statusOrder }}</span>
+                  </div>
+              </div>
+              <p-divider class="w-full block lg:hidden surface-border"></p-divider>
+          </div>
+      </div>

@@ -82,7 +82,8 @@ public class UserService implements UserDetailsService {
 
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity = repository.save(entity);
-        return new UserDto(entity);    }
+        return new UserDto(entity);
+    }
 
     @Transactional
     public UserDto update(Long id, UserUpdateDto dto) {

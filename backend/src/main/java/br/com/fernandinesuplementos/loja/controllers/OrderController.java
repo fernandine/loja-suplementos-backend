@@ -5,11 +5,11 @@ import br.com.fernandinesuplementos.loja.services.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/orders")
@@ -17,6 +17,12 @@ public class OrderController {
 
     @Autowired
     private OrderService service;
+
+    @GetMapping
+    public ResponseEntity<List<OrderDto>> findAll() {
+        List<OrderDto> list = service.findAll();
+        return ResponseEntity.ok().body(list);
+    }
 
     //@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
     @GetMapping(value = "/{id}")
