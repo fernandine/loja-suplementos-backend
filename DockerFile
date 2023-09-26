@@ -1,0 +1,5 @@
+FROM openjdk:17
+VOLUME /tmp
+EXPOSE 8081
+ADD ./target/loja-0.0.1-SNAPSHOT.jar /loja.jar
+ENTRYPOINT ["java", "-jar", "/loja.jar"]
